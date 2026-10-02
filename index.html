@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Svasti Kebaya Rental - Sewa Kebaya Modern, Tradisional, Akad, Wisuda, dan Lamaran dengan Kualitas Premium & Pelayanan Terbaik.">
+  <meta name="keywords" content="sewa kebaya, kebaya rental, kebaya modern, kebaya wisuda, kebaya pengantin, svasti kebaya">
+  <title>SVASTI Kebaya Rental - Tampil Anggun di Setiap Momen Spesial</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. NAVIGATION BAR (Glass Pill Dock)
+       ========================================================================= -->
+  <header class="site-header">
+    <div class="header-container">
+      <!-- Logo -->
+      <a href="#beranda" class="brand-logo" aria-label="Svasti Kebaya Homepage">
+        <span class="brand-title">S V A S T I</span>
+        <span class="brand-subtitle">KEBAYA RENTAL</span>
+      </a>
+
+      <!-- Center Nav Dock Pill -->
+      <nav class="nav-dock" aria-label="Main Navigation">
+        <a href="#beranda" class="nav-link active">Beranda</a>
+        <a href="#koleksi" class="nav-link">Koleksi</a>
+        <a href="#layanan" class="nav-link">Layanan</a>
+        <a href="#tentang-kami" class="nav-link">Tentang Kami</a>
+        <a href="#galeri" class="nav-link">Galeri</a>
+        <a href="#kontak" class="nav-link">Kontak</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="header-actions">
+        <!-- Search Button -->
+        <button class="action-icon-btn" onclick="document.getElementById('koleksi').scrollIntoView({behavior:'smooth'}); document.getElementById('catalogSearchInput').focus();" title="Cari Kebaya" aria-label="Cari Kebaya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Wishlist Button -->
+        <button class="action-icon-btn" id="navbarWishlistBtn" onclick="openWishlistDrawer()" title="Lihat Wishlist Saya" aria-label="Lihat Wishlist Saya">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="wishlist-badge" id="wishlistBadge">0</span>
+        </button>
+
+        <!-- Main Booking CTA Pill -->
+        <a href="#kontak" class="btn-pill btn-primary" onclick="openKebayaDetail('Kebaya Ayodhya')">
+          Booking Sekarang
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+
+        <!-- Mobile Nav Hamburger -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle Mobile Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Menu">
+    <div class="mobile-drawer-header">
+      <div class="brand-logo">
+        <span class="brand-title">S V A S T I</span>
+        <span class="brand-subtitle">KEBAYA RENTAL</span>
+      </div>
+      <button class="modal-close-btn" id="mobileNavClose" aria-label="Tutup Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-drawer-links">
+      <a href="#beranda" class="mobile-drawer-link">Beranda</a>
+      <a href="#koleksi-unggulan" class="mobile-drawer-link">Koleksi Pilihan</a>
+      <a href="#koleksi" class="mobile-drawer-link">Katalog Lengkap</a>
+      <a href="#tentang-kami" class="mobile-drawer-link">Tentang Kami</a>
+      <a href="#galeri" class="mobile-drawer-link">Galeri Lookbook</a>
+      <a href="#layanan" class="mobile-drawer-link">Layanan</a>
+      <a href="#testimoni" class="mobile-drawer-link">Testimoni</a>
+      <a href="#kontak" class="mobile-drawer-link">Kontak & Reservasi</a>
+    </nav>
+    <div style="margin-top: auto; padding-top: 20px;">
+      <a href="https://wa.me/6285973729267?text=Halo%20Svasti%20Kebaya%20Rental%20%E2%9C%A8%2C%20saya%20ingin%20konsultasi%20sewa%20kebaya." target="_blank" class="btn-pill btn-primary" style="width: 100%;">
+        Konsultasi WhatsApp
+      </a>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       2. HERO BANNER (Interactive 3D Carousel, Floating Card & Moments Dock)
+       ========================================================================= -->
+  <section id="beranda" class="hero-section">
+    <div class="container">
+      <div class="hero-banner-card">
+
+        <!-- Background Slides Carousel -->
+        <div class="hero-slider-container">
+          <!-- Slide 1: Kirana (Kondangan Black Gold) -->
+          <div class="hero-slide active">
+            <img src="assets/images/banner-4-fix.png" alt="Kebaya Kirana Kondangan" class="hero-slide-bg">
+          </div>
+          <!-- Slide 2: Maheswari (Akad Bridal) -->
+          <div class="hero-slide">
+            <img src="assets/images/banner-2-fix.png" alt="Kebaya Maheswari Akad" class="hero-slide-bg">
+          </div>
+          <!-- Slide 3: Ayodhya (Mauve Rose) -->
+          <div class="hero-slide">
+            <img src="assets/images/hero_banner_ai_1.jpg" alt="Kebaya Ayodhya Lamaran" class="hero-slide-bg">
+          </div>
+          <!-- Slide 4: Nirmala (Wisuda Sage) -->
+          <div class="hero-slide">
+            <img src="assets/images/hero_kebaya_rose_ai.jpg" alt="Kebaya Nirmala Wisuda" class="hero-slide-bg">
+          </div>
+        </div>
+
+        <!-- Layered Gradient Glow -->
+        <div class="hero-overlay"></div>
+
+        <!-- Edge Navigation Buttons (Left & Right) -->
+        <button class="hero-edge-btn prev" id="heroPrevBtn" aria-label="Slide Sebelumnya">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="hero-edge-btn next" id="heroNextBtn" aria-label="Slide Berikutnya">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Main Hero Content Grid -->
+        <div class="hero-content-grid">
+
+          <!-- Left Text Block -->
+          <div class="hero-text-block">
+            <span class="hero-badge-tag">KEBAYA RENTAL</span>
+            <h1 class="hero-main-title">
+              Tampil Anggun<br>
+              di Setiap<br>
+              Momen Spesial
+            </h1>
+            <p class="hero-desc">
+              Koleksi kebaya pilihan untuk akad, lamaran, wisuda, hingga acara formal lainnya. Dengan sentuhan tradisional dan desain modern yang memikat.
+            </p>
+            <div class="hero-cta-group">
+              <a href="#koleksi" class="btn-pill btn-primary">
+                Lihat Koleksi
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <a href="https://wa.me/6285973729267?text=Halo%20Svasti%20Kebaya%20Rental%20%E2%9C%A8%2C%20saya%20ingin%20konsultasi%20dan%20booking%20kebaya." target="_blank" class="btn-pill btn-glass">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                Booking Sekarang
+              </a>
+            </div>
+
+            <!-- Value Props Badges -->
+            <div class="hero-features-list">
+              <div class="hero-feature-item">
+                <div class="hero-feature-badge">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#B88A44">
+                    <path d="M3 16l2-9.5 4 4.5L12 4l3 7 4-4.5 2 9.5H3zm1 2h16v1.8c0 .6-.4 1-1 1H5c-.6 0-1-.4-1-1V18z"/>
+                  </svg>
+                </div>
+                <div class="hero-feature-text">
+                  <strong class="hero-feature-title">Koleksi Premium</strong>
+                  <span class="hero-feature-subtitle">Pilihan eksklusif</span>
+                </div>
+              </div>
+
+              <div class="hero-feature-item">
+                <div class="hero-feature-badge">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B88A44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.3 8.7l-6-6a2 2 0 0 0-2.8 0L3.2 12a2 2 0 0 0 0 2.8l6 6a2 2 0 0 0 2.8 0l9.3-9.3a2 2 0 0 0 0-2.8z"></path>
+                    <line x1="7.5" y1="10.5" x2="9" y2="12"></line>
+                    <line x1="10.5" y1="7.5" x2="12" y2="9"></line>
+                    <line x1="13.5" y1="4.5" x2="15" y2="6"></line>
+                    <line x1="4.5" y1="13.5" x2="6" y2="15"></line>
+                  </svg>
+                </div>
+                <div class="hero-feature-text">
+                  <strong class="hero-feature-title">Fitting Available</strong>
+                  <span class="hero-feature-subtitle">Biar makin pas</span>
+                </div>
+              </div>
+
+              <div class="hero-feature-item">
+                <div class="hero-feature-badge">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#B88A44">
+                    <path d="M12 5.5C7.6 5.5 4 9 4 13.5h16c0-4.5-3.6-8-8-8z"/>
+                    <path d="M5 15c0 .6.4 1 1 1h1.8l-1.8 3h2.2l1.6-3h4.4l1.6 3H18l-1.8-3H18c.6 0 1-.4 1-1v-.5H5v.5z"/>
+                  </svg>
+                </div>
+                <div class="hero-feature-text">
+                  <strong class="hero-feature-title">Styling & Accessories</strong>
+                  <span class="hero-feature-subtitle">Tampil lebih sempurna</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center-Right Floating 3D Card -->
+          <div class="hero-floating-card">
+            <div class="floating-card-header">
+              <div>
+                <h3 class="floating-card-title" id="floatingCardTitle">Kebaya Kirana</h3>
+                <span class="floating-card-tag" id="floatingCardTag">Kondangan & Gala Collection</span>
+              </div>
+              <button type="button" class="floating-card-wishlist" id="floatingCardWishlist" title="Simpan ke Wishlist" aria-label="Simpan ke Wishlist">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Color Swatches -->
+            <div class="color-swatches" id="floatingCardSwatches">
+              <span class="color-dot" style="background-color: #1F1F1F;" title="Midnight Black"></span>
+              <span class="color-dot" style="background-color: #D4AF37;" title="Antique Gold"></span>
+              <span class="color-dot" style="background-color: #431422;" title="Burgundy"></span>
+              <span class="color-dot" style="background-color: #1D2D44;" title="Navy"></span>
+            </div>
+
+            <p class="floating-card-desc" id="floatingCardDesc">
+              Kebaya brokat hitam emas glamor dengan potongan slim fit mewah untuk pesta malam.
+            </p>
+
+            <div class="floating-card-price-row">
+              <div class="floating-price-original-row">
+                <span class="floating-original-price" id="floatingCardOriginalPrice">Rp 375.000</span>
+                <span class="floating-discount-tag" id="floatingCardDiscount">20% OFF</span>
+              </div>
+              <div class="floating-price-main">
+                <span class="floating-card-price-label">Mulai </span>
+                <strong class="floating-card-price" id="floatingCardPrice">Rp 300.000</strong>
+                <span class="floating-card-price-label"> / sewa</span>
+              </div>
+            </div>
+
+            <button type="button" class="floating-card-btn" id="floatingCardBtn">
+              Lihat Detail
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Far-Right Thumbnails Column & Controls -->
+          <div class="hero-thumbnails-column">
+            <!-- Counter -->
+            <div class="hero-counter">
+              <span id="heroCounterCurrent">01</span> / 04
+            </div>
+
+            <!-- Vertical Thumbnails -->
+            <div class="hero-thumb-item active" data-index="0" title="Kebaya Kirana">
+              <img src="assets/images/hero_thumb_4.png" alt="Kirana Thumbnail">
+            </div>
+            <div class="hero-thumb-item" data-index="1" title="Kebaya Maheswari">
+              <img src="assets/images/hero_thumb_2.png" alt="Maheswari Thumbnail">
+            </div>
+            <div class="hero-thumb-item" data-index="2" title="Kebaya Ayodhya">
+              <img src="assets/images/hero_thumb_1.png" alt="Ayodhya Thumbnail">
+            </div>
+            <div class="hero-thumb-item" data-index="3" title="Kebaya Nirmala">
+              <img src="assets/images/hero_thumb_3.png" alt="Nirmala Thumbnail">
+            </div>
+
+            <!-- Up / Down Buttons -->
+            <div style="display: flex; gap: 6px; margin-top: 4px;">
+              <button class="hero-nav-arrow-btn" id="heroThumbUp" aria-label="Slide Ke Atas">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+              </button>
+              <button class="hero-nav-arrow-btn" id="heroThumbDown" aria-label="Slide Ke Bawah">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Moments Floating Pill Dock -->
+        <div class="hero-bottom-dock-wrapper">
+          <div class="hero-bottom-dock">
+            <!-- Dock Heading Pill -->
+            <div class="dock-heading-pill">
+              <div class="dock-heading-text">
+                Pilih Sesuai
+                <span>Momenmu</span>
+              </div>
+              <div class="dock-heading-arrow">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Category Pills Row -->
+            <div class="dock-items-row">
+              <div class="dock-item-btn active" data-moment="Semua">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-semua.png" alt="Semua Momen">
+                </div>
+                <span class="dock-item-label">Semua</span>
+              </div>
+
+              <div class="dock-item-btn" data-moment="Akad">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-akad.png" alt="Akad">
+                </div>
+                <span class="dock-item-label">Akad</span>
+              </div>
+
+              <div class="dock-item-btn" data-moment="Lamaran">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-lamaran.png" alt="Lamaran">
+                </div>
+                <span class="dock-item-label">Lamaran</span>
+              </div>
+
+              <div class="dock-item-btn" data-moment="Wisuda">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-wisuda.png" alt="Wisuda">
+                </div>
+                <span class="dock-item-label">Wisuda</span>
+              </div>
+
+              <div class="dock-item-btn" data-moment="Bridesmaid">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-bridesmaid.png" alt="Bridesmaid">
+                </div>
+                <span class="dock-item-label">Bridesmaid</span>
+              </div>
+
+              <div class="dock-item-btn" data-moment="Kondangan">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-kondangan.png" alt="Kondangan">
+                </div>
+                <span class="dock-item-label">Kondangan</span>
+              </div>
+
+              <div class="dock-item-btn" data-moment="Kebaya Modern">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-kebaya-modern.png" alt="Kebaya Modern">
+                </div>
+                <span class="dock-item-label">Kebaya Modern</span>
+              </div>
+
+              <div class="dock-item-btn" data-moment="Kebaya Tradisional">
+                <div class="dock-item-icon">
+                  <img src="assets/images/icon-kebaya-tradisional.png" alt="Kebaya Tradisional">
+                </div>
+                <span class="dock-item-label">Kebaya Tradisional</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       3. SECTION: KOLEKSI UNGGULAN (Featured Kebaya Cards)
+       ========================================================================= -->
+  <section id="koleksi-unggulan" class="section-wrapper">
+    <div class="container">
+      <div class="section-header flex-between">
+        <div>
+          <span class="section-tag">KOLEKSI UNGGULAN</span>
+          <h2 class="section-title">Koleksi Kebaya Pilihan</h2>
+          <p class="section-subtitle">Temukan kebaya yang sesuai dengan karakter dan momen spesialmu.</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-circle" onclick="document.getElementById('featuredKebayaGrid').scrollBy({left: -320, behavior: 'smooth'})" aria-label="Geser Kiri">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button class="btn-circle" onclick="document.getElementById('featuredKebayaGrid').scrollBy({left: 320, behavior: 'smooth'})" aria-label="Geser Kanan">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+          <a href="#koleksi" class="btn-pill btn-glass">
+            Lihat Semua Koleksi
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Featured Cards Grid (Dynamic JS) -->
+      <div class="featured-kebaya-grid" id="featuredKebayaGrid"></div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       4. SECTION: TENTANG KAMI (About Us & Video Modal)
+       ========================================================================= -->
+  <section id="tentang-kami" class="section-wrapper" style="background: #FAF6F0;">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Left Visual Card with 3D Accents -->
+        <div class="about-visual-container">
+          <!-- 3D Gold Sphere Accent -->
+          <div class="about-sphere-accent"></div>
+
+          <div class="about-card-frame">
+            <img src="assets/images/about_model.png" alt="Tentang Svasti Kebaya Rental">
+          </div>
+
+          <!-- Video Badge Trigger -->
+          <div class="about-video-card" id="aboutVideoTrigger">
+            <div class="video-thumb">
+              <img src="assets/images/card_ayodhya.png" alt="Behind the Story Preview">
+            </div>
+            <div>
+              <span class="video-card-title">Behind The Story</span>
+              <div class="video-card-link">
+                Lihat Video Singkat
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Play Button Overlay -->
+          <button class="about-play-btn" id="aboutPlayBtn" aria-label="Putar Video">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Right Content & Stats -->
+        <div>
+          <span class="section-tag">TENTANG KAMI</span>
+          <h2 class="section-title" style="margin-bottom: 20px;">
+            Lebih dari Sekadar Kebaya, Ini tentang Cerita.
+          </h2>
+          <p class="about-story-text">
+            Svasti hadir untuk menemani setiap momen penting dalam hidupmu dengan kebaya pilihan yang anggun, berkualitas, dan penuh makna. Kami percaya setiap perempuan berhak merasa istimewa dalam versi terbaiknya.
+          </p>
+
+          <a href="#layanan" class="btn-pill btn-primary">
+            Kenali Kami Lebih Dekat
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+
+          <!-- 3D Stat Cards Grid -->
+          <div class="about-stats-grid">
+            <div class="stat-card-3d">
+              <div class="stat-card-icon">👑</div>
+              <div class="stat-card-number">100+</div>
+              <div class="stat-card-label">Koleksi Kebaya</div>
+            </div>
+            <div class="stat-card-3d">
+              <div class="stat-card-icon">⌛</div>
+              <div class="stat-card-number">5+</div>
+              <div class="stat-card-label">Tahun Pengalaman</div>
+            </div>
+            <div class="stat-card-3d">
+              <div class="stat-card-icon">💖</div>
+              <div class="stat-card-number">1.000+</div>
+              <div class="stat-card-label">Pelanggan Puas</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       5. SECTION: LOOKBOOK (Inspirasi Gayamu)
+       ========================================================================= -->
+  <section id="galeri" class="section-wrapper">
+    <div class="container">
+      <div class="section-header flex-between">
+        <div>
+          <span class="section-tag">LOOKBOOK</span>
+          <h2 class="section-title">Inspirasi Gayamu</h2>
+          <p class="section-subtitle">Lihat bagaimana kebaya kami hadir di berbagai momen spesial.</p>
+        </div>
+        <a href="#koleksi" class="btn-pill btn-glass">
+          Lihat Semua Foto
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 4 Wide Cards -->
+      <div class="lookbook-grid">
+        <div class="lookbook-card" data-lookbook-title="Akad">
+          <img src="assets/images/lookbook_akad.png" alt="Inspirasi Kebaya Akad">
+          <div class="lookbook-card-overlay">
+            <div>
+              <h3 class="lookbook-title">Akad</h3>
+              <span class="lookbook-subtitle">
+                Lihat Inspirasi
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </span>
+            </div>
+            <div class="lookbook-arrow-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="lookbook-card" data-lookbook-title="Lamaran">
+          <img src="assets/images/lookbook_lamaran.png" alt="Inspirasi Kebaya Lamaran">
+          <div class="lookbook-card-overlay">
+            <div>
+              <h3 class="lookbook-title">Lamaran</h3>
+              <span class="lookbook-subtitle">
+                Lihat Inspirasi
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </span>
+            </div>
+            <div class="lookbook-arrow-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="lookbook-card" data-lookbook-title="Wisuda">
+          <img src="assets/images/lookbook_wisuda.png" alt="Inspirasi Kebaya Wisuda">
+          <div class="lookbook-card-overlay">
+            <div>
+              <h3 class="lookbook-title">Wisuda</h3>
+              <span class="lookbook-subtitle">
+                Lihat Inspirasi
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </span>
+            </div>
+            <div class="lookbook-arrow-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="lookbook-card" data-lookbook-title="Event">
+          <img src="assets/images/lookbook_event.png" alt="Inspirasi Kebaya Event">
+          <div class="lookbook-card-overlay">
+            <div>
+              <h3 class="lookbook-title">Event</h3>
+              <span class="lookbook-subtitle">
+                Lihat Inspirasi
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </span>
+            </div>
+            <div class="lookbook-arrow-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       6. SECTION: LAYANAN (Services 3D Pill Cards)
+       ========================================================================= -->
+  <section id="layanan" class="section-wrapper" style="background: #FAF7F2;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">LAYANAN</span>
+        <h2 class="section-title">Layanan yang Kami Tawarkan</h2>
+        <p class="section-subtitle">Pengalaman sewa kebaya yang mudah, nyaman, dan menyenangkan.</p>
+      </div>
+
+      <!-- 4 Services Cards -->
+      <div class="services-grid">
+        <div class="service-card-3d" onclick="openKebayaDetail('Kebaya Ayodhya')">
+          <div class="service-icon-box">
+            <img src="assets/images/service_rental.png" alt="Layanan Kebaya Rental">
+          </div>
+          <div class="service-card-info">
+            <h3 class="service-card-title">Kebaya Rental</h3>
+            <p class="service-card-desc">Pilihan kebaya beragam untuk berbagai acara formal & sakral.</p>
+          </div>
+          <div class="service-arrow-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="service-card-3d" onclick="openKebayaDetail('Kebaya Maheswari')">
+          <div class="service-icon-box">
+            <img src="assets/images/service_fitting.png" alt="Layanan Fitting">
+          </div>
+          <div class="service-card-info">
+            <h3 class="service-card-title">Fitting</h3>
+            <p class="service-card-desc">Coba dan sesuaikan ukuran kebaya langsung sebelum hari-H.</p>
+          </div>
+          <div class="service-arrow-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="service-card-3d" onclick="openKebayaDetail('Kebaya Nirmala')">
+          <div class="service-icon-box">
+            <img src="assets/images/service_styling.png" alt="Layanan Styling">
+          </div>
+          <div class="service-card-info">
+            <h3 class="service-card-title">Styling</h3>
+            <p class="service-card-desc">Bantuan styling profesional agar tampilan lebih maksimal.</p>
+          </div>
+          <div class="service-arrow-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="service-card-3d" onclick="openKebayaDetail('Kebaya Kirana')">
+          <div class="service-icon-box">
+            <img src="assets/images/service_accessories.png" alt="Layanan Accessories">
+          </div>
+          <div class="service-card-info">
+            <h3 class="service-card-title">Accessories</h3>
+            <p class="service-card-desc">Sanggul, veil, bros, selendang dan pelengkap elegan lainnya.</p>
+          </div>
+          <div class="service-arrow-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       7. SECTION: CARA SEWA (How To Rent - 5 Steps Timeline)
+       ========================================================================= -->
+  <section class="section-wrapper">
+    <div class="container">
+      <div class="rental-steps-card">
+        <div class="steps-container">
+
+          <!-- Left Intro -->
+          <div class="steps-left-intro">
+            <span class="section-tag">CARA SEWA</span>
+            <h3>Mudah dalam 4 Langkah</h3>
+            <p>Proses sewa yang simpel, transparan, dan jelas untuk kenyamanan momen bahagiamu.</p>
+            <a href="https://wa.me/6285973729267?text=Halo%20Svasti%20Kebaya%20Rental%20%E2%9C%A8%2C%20saya%20ingin%20booking%20sewa%20kebaya." target="_blank" class="btn-pill btn-primary">
+              Booking Sekarang
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Right 5 Steps Track -->
+          <div class="steps-track-row">
+            <div class="step-item-card">
+              <div class="step-icon-bubble">
+                <img src="assets/images/step_1.png" alt="Langkah 01 Pilih Kebaya">
+              </div>
+              <span class="step-number">01</span>
+              <h4 class="step-title">Pilih Kebaya</h4>
+              <p class="step-desc">Temukan koleksi favoritmu di katalog kami.</p>
+            </div>
+
+            <div class="step-item-card">
+              <div class="step-icon-bubble">
+                <img src="assets/images/step_2.png" alt="Langkah 02 Cek Ketersediaan">
+              </div>
+              <span class="step-number">02</span>
+              <h4 class="step-title">Cek Ketersediaan</h4>
+              <p class="step-desc">Hubungi kami untuk memastikan tanggal acara.</p>
+            </div>
+
+            <div class="step-item-card">
+              <div class="step-icon-bubble">
+                <img src="assets/images/step_3.png" alt="Langkah 03 Booking & DP">
+              </div>
+              <span class="step-number">03</span>
+              <h4 class="step-title">Booking & DP</h4>
+              <p class="step-desc">Lakukan pembayaran uang muka sesuai ketentuan.</p>
+            </div>
+
+            <div class="step-item-card">
+              <div class="step-icon-bubble">
+                <img src="assets/images/step_4.png" alt="Langkah 04 Fitting & Pickup">
+              </div>
+              <span class="step-number">04</span>
+              <h4 class="step-title">Fitting & Pickup</h4>
+              <p class="step-desc">Datang untuk fitting final dan ambil kebaya.</p>
+            </div>
+
+            <div class="step-item-card">
+              <div class="step-icon-bubble">
+                <img src="assets/images/step_5.png" alt="Langkah 05 Return">
+              </div>
+              <span class="step-number">05</span>
+              <h4 class="step-title">Return</h4>
+              <p class="step-desc">Kembalikan sesuai jadwal yang telah ditentukan.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       8. SECTION: KATALOG LENGKAP & FILTER INTERAKTIF (Mockup 3)
+       ========================================================================= -->
+  <section id="koleksi" class="catalog-explorer-section">
+    <div class="container">
+
+      <!-- Catalog Top Header -->
+      <div style="margin-bottom: 36px; text-align: center;">
+        <span class="section-tag">KOLEKSI KAMI</span>
+        <h2 class="section-title">Koleksi Kebaya Pilihan</h2>
+        <p class="section-subtitle" style="margin: 8px auto 0;">
+          Temukan kebaya yang sesuai dengan momen spesialmu. Tampil anggun dengan koleksi pilihan kami.
+        </p>
+      </div>
+
+      <!-- Layout: Filter Sidebar (Left) + Catalog Grid (Right) -->
+      <div class="catalog-layout">
+
+        <!-- Sidebar Filter -->
+        <aside class="filter-sidebar">
+          <div class="filter-header">
+            <h3 class="filter-header-title">Filter Koleksi</h3>
+            <button type="button" class="filter-reset-btn" id="filterResetBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M23 4v6h-6"></path>
+                <path d="M1 20v-6h6"></path>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+              Reset
+            </button>
+          </div>
+
+          <!-- Search in catalog -->
+          <div class="filter-group">
+            <label for="catalogSearchInput" class="filter-group-title">Cari Model</label>
+            <input type="text" id="catalogSearchInput" class="modal-input" placeholder="Ketik nama kebaya...">
+          </div>
+
+          <!-- Kategori -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              Kategori
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            </div>
+            <div class="filter-checkbox-list">
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Semua" checked style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Semua
+                </span>
+                <span class="filter-count">(48)</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Akad" style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Akad
+                </span>
+                <span class="filter-count">(8)</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Lamaran" style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Lamaran
+                </span>
+                <span class="filter-count">(10)</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Wisuda" style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Wisuda
+                </span>
+                <span class="filter-count">(6)</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Bridesmaid" style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Bridesmaid
+                </span>
+                <span class="filter-count">(8)</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Kondangan" style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Kondangan
+                </span>
+                <span class="filter-count">(10)</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Kebaya Modern" style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Kebaya Modern
+                </span>
+                <span class="filter-count">(12)</span>
+              </label>
+              <label class="filter-checkbox-label">
+                <span class="checkbox-left">
+                  <input type="checkbox" class="cat-checkbox" value="Kebaya Tradisional" style="display:none;">
+                  <span class="custom-checkbox">✓</span>
+                  Kebaya Tradisional
+                </span>
+                <span class="filter-count">(6)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Warna -->
+          <div class="filter-group">
+            <div class="filter-group-title">
+              Warna
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            </div>
+            <div class="filter-color-list">
+              <div class="color-filter-row active" data-color="Semua">
+                <span class="color-dot" style="background:#5A1F30;"></span>
+                <span>Semua Warna</span>
+              </div>
+              <div class="color-filter-row" data-color="Putih">
+                <span class="color-dot" style="background:#FFFFFF; border:1px solid #ddd;"></span>
+                <span>Putih</span>
+              </div>
+              <div class="color-filter-row" data-color="Cream">
+                <span class="color-dot" style="background:#F5EFE6;"></span>
+                <span>Cream</span>
+              </div>
+              <div class="color-filter-row" data-color="Dusty Pink">
+                <span class="color-dot" style="background:#D8A4B8;"></span>
+                <span>Dusty Pink</span>
+              </div>
+              <div class="color-filter-row" data-color="Maroon">
+                <span class="color-dot" style="background:#5A1F30;"></span>
+                <span>Maroon</span>
+              </div>
+              <div class="color-filter-row" data-color="Sage">
+                <span class="color-dot" style="background:#8A9A86;"></span>
+                <span>Sage</span>
+              </div>
+              <div class="color-filter-row" data-color="Navy">
+                <span class="color-dot" style="background:#1D2D44;"></span>
+                <span>Navy</span>
+              </div>
+              <div class="color-filter-row" data-color="Hitam">
+                <span class="color-dot" style="background:#1F1F1F;"></span>
+                <span>Hitam</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ukuran Tersedia -->
+          <div class="filter-group">
+            <div class="filter-group-title">Ukuran Tersedia</div>
+            <div class="filter-size-grid">
+              <div class="size-pill-btn" data-size="XS">XS</div>
+              <div class="size-pill-btn" data-size="S">S</div>
+              <div class="size-pill-btn" data-size="M">M</div>
+              <div class="size-pill-btn" data-size="L">L</div>
+              <div class="size-pill-btn" data-size="XL">XL</div>
+              <div class="size-pill-btn" data-size="XXL">XXL</div>
+            </div>
+          </div>
+
+          <!-- Rentang Harga Slider -->
+          <div class="filter-group">
+            <div class="filter-group-title">Rentang Harga</div>
+            <div class="price-range-wrapper">
+              <input type="range" class="price-range-slider" id="priceRangeSlider" min="200000" max="1000000" step="50000" value="1000000">
+              <div class="price-labels-row">
+                <span>Rp 200.000</span>
+                <span id="priceMaxLabel">Rp 1.000.000</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Products Grid Container -->
+        <main>
+          <div class="catalog-content-header">
+            <div class="catalog-results-count" id="catalogResultsCount">48 Koleksi Ditemukan</div>
+            <select class="catalog-sort-select" id="catalogSortSelect" aria-label="Urutkan Koleksi">
+              <option value="terbaru">Urutkan: Terbaru</option>
+              <option value="populer">Paling Populer</option>
+              <option value="harga-rendah">Harga Terendah</option>
+              <option value="harga-tinggi">Harga Tertinggi</option>
+            </select>
+          </div>
+
+          <!-- 8 Catalog Cards (Rendered by JS) -->
+          <div class="catalog-products-grid" id="catalogProductsGrid"></div>
+
+          <!-- Pagination -->
+          <div class="pagination-row">
+            <button class="pagination-btn" aria-label="Halaman Sebelumnya">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn" aria-label="Halaman Berikutnya">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </main>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       9. SECTION: TESTIMONI (Client Reviews)
+       ========================================================================= -->
+  <section id="testimoni" class="section-wrapper" style="background: #FAF6F0;">
+    <div class="container">
+      <div class="section-header flex-between">
+        <div>
+          <span class="section-tag">TESTIMONI</span>
+          <h2 class="section-title">Kata Mereka</h2>
+          <p class="section-subtitle">Pengalaman nyata dari para pelanggan setia Svasti Kebaya.</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-circle" onclick="document.getElementById('testimonialsGrid').scrollBy({left: -320, behavior: 'smooth'})" aria-label="Sebelumnya">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button class="btn-circle" onclick="document.getElementById('testimonialsGrid').scrollBy({left: 320, behavior: 'smooth'})" aria-label="Berikutnya">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+          <a href="#kontak" class="btn-pill btn-glass">
+            Lihat Semua Testimoni
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3 Testimonial Cards -->
+      <div class="testimonials-grid" id="testimonialsGrid">
+        <div class="testimonial-card-3d">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              "Kebayanya cantik banget, pas dipakai dan pelayanannya juga super ramah! Semua tamu di akad memuji detail payetnya yang mewah."
+            </p>
+          </div>
+          <div class="testimonial-client-row">
+            <div class="testimonial-client-info">
+              <div class="testimonial-avatar">
+                <img src="assets/images/testi_1.png" alt="Nadya Putri">
+              </div>
+              <div>
+                <h4 class="client-name">Nadya Putri</h4>
+                <span class="client-role">Akad Pengantin</span>
+              </div>
+            </div>
+            <div class="service-arrow-pill">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card-3d">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              "Pilihan koleksinya lengkap dan modern. Fitting-nya juga dibantu sampai pas di badan. Wisuda jadi pede banget foto bareng keluarga!"
+            </p>
+          </div>
+          <div class="testimonial-client-row">
+            <div class="testimonial-client-info">
+              <div class="testimonial-avatar">
+                <img src="assets/images/testi_2.png" alt="Aulia Rahma">
+              </div>
+              <div>
+                <h4 class="client-name">Aulia Rahma</h4>
+                <span class="client-role">Wisuda Sarjana</span>
+              </div>
+            </div>
+            <div class="service-arrow-pill">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card-3d">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              "Suka banget sama detail kebayanya, elegan dan nyaman dipakai seharian. Kainnya jatuh dan nggak bikin gatal sama sekali."
+            </p>
+          </div>
+          <div class="testimonial-client-row">
+            <div class="testimonial-client-info">
+              <div class="testimonial-avatar">
+                <img src="assets/images/testi_3.png" alt="Dinda Lestari">
+              </div>
+              <div>
+                <h4 class="client-name">Dinda Lestari</h4>
+                <span class="client-role">Kondangan & Gala</span>
+              </div>
+            </div>
+            <div class="service-arrow-pill">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       10. SECTION: CALL TO ACTION BANNER (Your Special Day, Our Kebaya)
+       ========================================================================= -->
+  <section class="cta-banner-section">
+    <div class="container">
+      <div class="cta-banner-box">
+
+        <!-- Left Content -->
+        <div class="cta-banner-content">
+          <h2 class="cta-banner-title">
+            Your Special Day,<br>Our Kebaya
+          </h2>
+          <p class="cta-banner-subtitle">
+            Wujudkan momen spesialmu bersama Svasti. Koleksi kebaya pilihan dengan layanan terbaik.
+          </p>
+          <div class="cta-banner-actions">
+            <a href="https://wa.me/6285973729267?text=Halo%20Svasti%20Kebaya%20Rental%20%E2%9C%A8%2C%20saya%20ingin%20konsultasi%20sewa%20kebaya%20untuk%20momen%20spesial." target="_blank" class="btn-pill btn-cta-cream">
+              Booking Sekarang
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Media Model Visual -->
+        <div class="cta-banner-media">
+          <img src="assets/images/hero_banner_ai_1.jpg" alt="Svasti Kebaya Model">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       11. SECTION: FOOTER
+       ========================================================================= -->
+  <footer id="kontak" class="site-footer">
+    <div class="container">
+
+      <!-- Top Row -->
+      <div class="footer-top-row">
+        <!-- Logo -->
+        <div class="brand-logo">
+          <span class="brand-title">S V A S T I</span>
+          <span class="brand-subtitle">KEBAYA RENTAL</span>
+        </div>
+
+        <!-- Nav Links -->
+        <nav class="footer-links-row" aria-label="Footer Navigation">
+          <a href="#beranda" class="footer-link">Beranda</a>
+          <a href="#koleksi" class="footer-link">Koleksi</a>
+          <a href="#layanan" class="footer-link">Layanan</a>
+          <a href="#tentang-kami" class="footer-link">Tentang Kami</a>
+          <a href="#galeri" class="footer-link">Galeri</a>
+          <a href="#kontak" class="footer-link">Kontak</a>
+        </nav>
+
+        <!-- Social Media Icons -->
+        <div class="footer-social-row">
+          <a href="https://instagram.com" target="_blank" class="footer-social-btn" title="Instagram" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="https://tiktok.com" target="_blank" class="footer-social-btn" title="TikTok" aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+          </a>
+          <a href="https://pinterest.com" target="_blank" class="footer-social-btn" title="Pinterest" aria-label="Pinterest">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 20l4-9"></path><path d="M10.7 13c.43 1.2 1.45 2 2.8 2 2.2 0 3.5-1.8 3.5-4 0-2.5-1.8-4-4.5-4-3 0-4.5 2-4.5 4.5 0 1 .4 2 1.2 2.5"></path></svg>
+          </a>
+          <a href="https://wa.me/6285973729267" target="_blank" class="footer-social-btn" title="WhatsApp" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="footer-bottom-row">
+        <span>© 2026 Svasti Kebaya Rental. All rights reserved.</span>
+        <span>Elegance in Every Moment.</span>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- =========================================================================
+       12. MODAL: KEBAYA DETAIL & DIRECT WHATSAPP BOOKING
+       ========================================================================= -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-card-3d" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Tutup Dialog">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="modal-grid">
+        <!-- Media Column -->
+        <div class="modal-media-col">
+          <img src="assets/images/card_ayodhya.png" alt="Detail Kebaya" id="modalImage">
+        </div>
+
+        <!-- Info Column -->
+        <div class="modal-info-col">
+          <span class="modal-tag" id="modalTag">Lamaran</span>
+          <h2 class="modal-title" id="modalTitle">Kebaya Ayodhya</h2>
+
+          <div class="modal-price-box">
+            <div class="modal-price-original-row">
+              <span class="modal-original-price" id="modalOriginalPrice">Rp 360.000</span>
+              <span class="modal-discount-tag" id="modalDiscount">15% OFF</span>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:6px;">
+              <span class="modal-price-amount" id="modalPrice">Rp 300.000</span>
+              <span class="modal-price-unit">/ sewa</span>
+            </div>
+          </div>
+
+          <p class="modal-desc-text" id="modalDesc">
+            Kebaya modern dengan detail bordir halus dan payet premium. Nyaman dikenakan sepanjang acara sakral Anda.
+          </p>
+
+          <!-- Size selector -->
+          <div>
+            <label class="modal-option-label">Pilih Ukuran Tersedia:</label>
+            <div class="modal-size-row" id="modalSizesContainer"></div>
+          </div>
+
+          <!-- Booking Form Parameters -->
+          <div class="modal-booking-form">
+            <div>
+              <label for="modalEventDate" class="modal-option-label">Tanggal Acara / Fitting:</label>
+              <input type="date" class="modal-input" id="modalEventDate">
+            </div>
+
+            <div>
+              <label for="modalDuration" class="modal-option-label">Durasi Sewa:</label>
+              <select class="modal-input" id="modalDuration">
+                <option value="3 Hari">Paket Standar (3 Hari)</option>
+                <option value="5 Hari">Paket Luar Kota (5 Hari)</option>
+                <option value="7 Hari">Paket Khusus (7 Hari)</option>
+              </select>
+            </div>
+
+            <div style="margin-top: 14px;">
+              <a href="#" target="_blank" class="btn-pill btn-primary" id="modalWhatsappBtn" style="width: 100%; display: flex;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                Hubungi via WhatsApp
+              </a>
+              <small style="display: block; text-align: center; color: var(--text-muted); font-size: 0.76rem; margin-top: 8px;">
+                Langsung terhubung dengan Customer Service Svasti Kebaya
+              </small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       13. MODAL: BEHIND THE STORY VIDEO LIGHTBOX
+       ========================================================================= -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="video-modal-card" role="dialog" aria-modal="true">
+      <button class="modal-close-btn" id="videoCloseBtn" style="top: 14px; right: 14px; z-index: 10;" aria-label="Tutup Video">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="video-container-frame">
+        <video controls poster="assets/images/about_model.png" style="width:100%; height:100%;">
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video HTML5.
+        </video>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       14. FLOATING WHATSAPP BUTTON (Quick Consultation)
+       ========================================================================= -->
+  <a href="https://wa.me/6285973729267?text=Halo%20Svasti%20Kebaya%20Rental%20%E2%9C%A8%2C%20saya%20ingin%20konsultasi%20sewa%20kebaya." 
+     target="_blank" 
+     class="floating-whatsapp-btn" 
+     title="Konsultasi Cepat WhatsApp" 
+     aria-label="Konsultasi Cepat WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+    </svg>
+    <div class="floating-whatsapp-tooltip">Tanya Admin Kebaya</div>
+  </a>
+
+  <!-- =========================================================================
+       15. WISHLIST DRAWER (Side Drawer & LocalStorage Display)
+       ========================================================================= -->
+  <div class="wishlist-overlay" id="wishlistOverlay">
+    <aside class="wishlist-drawer" id="wishlistDrawer" role="dialog" aria-modal="true" aria-labelledby="wishlistDrawerTitle">
+      <div class="wishlist-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h3 class="wishlist-title" id="wishlistDrawerTitle">Wishlist Saya</h3>
+          <span class="wishlist-count-pill" id="wishlistDrawerCount">0 Kebaya</span>
+        </div>
+        <button class="modal-close-btn" id="wishlistCloseBtn" onclick="closeWishlistDrawer()" aria-label="Tutup Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Scrollable Wishlist Items List -->
+      <div class="wishlist-body" id="wishlistBody">
+        <!-- Rendered dynamically by JS from localStorage -->
+      </div>
+
+      <!-- Wishlist Footer Actions -->
+      <div class="wishlist-footer" id="wishlistFooter">
+        <!-- Pricing Breakdown Summary with Discount -->
+        <div class="wishlist-summary-card" id="wishlistSummaryCard">
+          <div class="wishlist-summary-row">
+            <span class="summary-label">Subtotal Sewa</span>
+            <span class="summary-val" id="wishlistSubtotal">Rp 0</span>
+          </div>
+          <div class="wishlist-summary-row discount-row" id="wishlistDiscountRow">
+            <span class="summary-label">
+              Diskon Spesial
+              <span class="discount-badge" id="wishlistDiscountBadge">10% OFF</span>
+            </span>
+            <span class="summary-val discount-val" id="wishlistDiscount">-Rp 0</span>
+          </div>
+          <div class="wishlist-summary-divider"></div>
+          <div class="wishlist-summary-row total-row">
+            <span class="summary-total-label">Total Estimasi</span>
+            <span class="summary-total-val" id="wishlistTotal">Rp 0</span>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 12px 0 14px;">
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Tersimpan di perangkat Anda</span>
+          <button type="button" class="wishlist-clear-btn" onclick="clearAllWishlist()">Hapus Semua</button>
+        </div>
+        <a href="#" target="_blank" class="btn-pill btn-primary" id="wishlistConsultBtn" style="width: 100%; display: flex; font-size: 0.94rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          Sewa via WhatsApp (0859-7372-9267)
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Application Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>
