@@ -1080,6 +1080,16 @@ Apakah model kebaya ini masih tersedia untuk tanggal tersebut? Saya ingin jadwal
     const docHeight = document.documentElement.scrollHeight;
     const winHeight = window.innerHeight;
 
+    // 3. Back to Top Button visibility (shows when scrolled down > 350px)
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+      if (scrollY > 350) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }
+
     // If near bottom of the page, activate Kontak
     if (scrollY + winHeight >= docHeight - 100) {
       setActiveNav('#kontak');
@@ -1117,15 +1127,693 @@ Apakah model kebaya ini masih tersedia untuk tanggal tersebut? Saya ingin jadwal
     });
   });
 
-  // Keyboard accessibility (ESC to close modals)
+  // =========================================================================
+  // 12. BACK TO TOP BUTTON LOGIC
+  // =========================================================================
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // =========================================================================
+  // 13. SVASTI VIRTUAL STYLIST - INTERACTIVE AI CHATBOT SYSTEM
+  // =========================================================================
+  const chatbotToggleBtn = document.getElementById('chatbotToggleBtn');
+  const chatbotWidget = document.getElementById('chatbotWidget');
+  const chatbotCloseBtn = document.getElementById('chatbotCloseBtn');
+  const chatbotResetBtn = document.getElementById('chatbotResetBtn');
+  const chatbotToast = document.getElementById('chatbotToast');
+  const chatbotBody = document.getElementById('chatbotBody');
+  const chatbotMessages = document.getElementById('chatbotMessages');
+  const chatbotTyping = document.getElementById('chatbotTyping');
+  const chatbotChipsBar = document.getElementById('chatbotChipsBar');
+  const chatbotChipsPrev = document.getElementById('chatbotChipsPrev');
+  const chatbotChipsNext = document.getElementById('chatbotChipsNext');
+  const chatbotForm = document.getElementById('chatbotForm');
+  const chatbotInput = document.getElementById('chatbotInput');
+  const chatbotBadgeUnread = document.getElementById('chatbotBadgeUnread');
+
+  // Sound chime synthesizer via Web Audio API (zero audio file dependencies)
+  function playChatSound() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      const now = ctx.currentTime;
+      osc.frequency.setValueAtTime(659.25, now); // E5
+      osc.frequency.exponentialRampToValueAtTime(987.77, now + 0.12); // B5
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      osc.start(now);
+      osc.stop(now + 0.23);
+    } catch (e) {
+      // AudioContext policy suppression fallback
+    }
+  }
+
+  function getFormattedTime() {
+    const d = new Date();
+    const hours = String(d.getHours()).padStart(2, '0');
+    const mins = String(d.getMinutes()).padStart(2, '0');
+    return `${hours}:${mins}`;
+  }
+
+  // Default initial greeting
+  const initialBotGreeting = {
+    sender: 'bot',
+    text: `Halo Kak! ✨ Selamat datang di **Svasti Kebaya Rental**.\n\nSaya **Svasti Virtual Stylist**, asisten AI cerdas yang siap membantu Kakak menemukan kebaya impian untuk **Wisuda, Akad, Lamaran, atau Kondangan**, cek harga sewa, panduan ukuran, hingga reservasi.\n\nAda yang bisa saya bantu hari ini?`,
+    actions: [
+      { text: '🎓 Rekomendasi Wisuda', action: 'send-query', query: 'Rekomendasi Wisuda' },
+      { text: '💍 Kebaya Akad', action: 'send-query', query: 'Koleksi Kebaya Akad' },
+      { text: '💰 Harga & Diskon', action: 'send-query', query: 'Berapa harga sewa dan diskon?' },
+      { text: '📏 Panduan Ukuran', action: 'send-query', query: 'Panduan ukuran dan size chart' }
+    ],
+    time: getFormattedTime()
+  };
+
+  let chatHistory = [];
+  try {
+    const saved = sessionStorage.getItem('svasti_chat_history');
+    if (saved) {
+      chatHistory = JSON.parse(saved);
+    }
+  } catch (e) {
+    chatHistory = [];
+  }
+
+  if (!chatHistory || chatHistory.length === 0) {
+    chatHistory = [initialBotGreeting];
+  }
+
+  function saveChatHistory() {
+    try {
+      sessionStorage.setItem('svasti_chat_history', JSON.stringify(chatHistory));
+    } catch (e) {}
+  }
+
+  function formatTextMarkup(rawText) {
+    if (!rawText) return '';
+    // Escape HTML special characters
+    let escaped = rawText
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    // Bold **text**
+    escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Newlines to <br>
+    escaped = escaped.replace(/\n/g, '<br>');
+    return escaped;
+  }
+
+  function renderMessageItem(msg) {
+    const isBot = msg.sender === 'bot';
+    const row = document.createElement('div');
+    row.className = `chat-msg-row ${isBot ? 'bot' : 'user'}`;
+
+    if (isBot) {
+      let actionsHTML = '';
+      if (msg.actions && msg.actions.length > 0) {
+        actionsHTML = `
+          <div class="chat-action-pills">
+            ${msg.actions.map(act => {
+              if (act.action === 'send-query') {
+                return `<button type="button" class="chat-action-btn" data-action="send-query" data-query="${act.query}">${act.text}</button>`;
+              } else if (act.action === 'filter-cat') {
+                return `<button type="button" class="chat-action-btn" data-action="filter-cat" data-category="${act.category}">${act.text}</button>`;
+              } else if (act.action === 'open-detail') {
+                return `<button type="button" class="chat-action-btn" data-action="open-detail" data-kebaya="${act.kebaya}">${act.text}</button>`;
+              } else if (act.action === 'open-wishlist') {
+                return `<button type="button" class="chat-action-btn" data-action="open-wishlist">${act.text}</button>`;
+              } else if (act.action === 'scroll-to') {
+                return `<button type="button" class="chat-action-btn" data-action="scroll-to" data-target="${act.target}">${act.text}</button>`;
+              } else if (act.action === 'open-wa') {
+                return `<a href="https://wa.me/6285973729267?text=${encodeURIComponent(act.msg || 'Halo Svasti Kebaya')}" target="_blank" class="chat-action-btn" data-action="open-wa">${act.text}</a>`;
+              }
+              return '';
+            }).join('')}
+          </div>
+        `;
+      }
+
+      row.innerHTML = `
+        <div class="bot-msg-container">
+          <div class="bot-avatar-sm" title="Svasti AI">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+              <circle cx="12" cy="5" r="2"></circle>
+              <path d="M12 7v4"></path>
+              <line x1="8" y1="16" x2="8.01" y2="16" stroke-width="2.5"></line>
+              <line x1="16" y1="16" x2="16.01" y2="16" stroke-width="2.5"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="chat-bubble-bot">
+              ${formatTextMarkup(msg.text)}
+              ${actionsHTML}
+            </div>
+            <div class="chat-msg-time">${msg.time || getFormattedTime()}</div>
+          </div>
+        </div>
+      `;
+    } else {
+      row.innerHTML = `
+        <div class="chat-bubble-user">
+          ${formatTextMarkup(msg.text)}
+        </div>
+        <div class="chat-msg-time">${msg.time || getFormattedTime()}</div>
+      `;
+    }
+
+    return row;
+  }
+
+  function renderAllChatMessages() {
+    if (!chatbotMessages) return;
+    chatbotMessages.innerHTML = '';
+    chatHistory.forEach(msg => {
+      chatbotMessages.appendChild(renderMessageItem(msg));
+    });
+    scrollChatToBottom();
+  }
+
+  function scrollChatToBottom() {
+    if (chatbotBody) {
+      setTimeout(() => {
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }, 30);
+    }
+  }
+
+  // Open & Close Chatbot
+  window.openChatbot = function() {
+    if (!chatbotWidget) return;
+    chatbotWidget.classList.add('active');
+    if (chatbotToggleBtn) {
+      chatbotToggleBtn.classList.add('active');
+      const openIcon = chatbotToggleBtn.querySelector('.chatbot-icon-open');
+      const closeIcon = chatbotToggleBtn.querySelector('.chatbot-icon-close');
+      if (openIcon) openIcon.style.display = 'none';
+      if (closeIcon) closeIcon.style.display = 'block';
+    }
+    if (chatbotBadgeUnread) {
+      chatbotBadgeUnread.classList.add('hidden');
+    }
+    scrollChatToBottom();
+    setTimeout(updateChipsNavVisibility, 100);
+    // Focus input on non-touch devices
+    if (window.innerWidth > 600 && chatbotInput) {
+      setTimeout(() => chatbotInput.focus(), 250);
+    }
+  };
+
+  window.closeChatbot = function() {
+    if (!chatbotWidget) return;
+    chatbotWidget.classList.remove('active');
+    if (chatbotToggleBtn) {
+      chatbotToggleBtn.classList.remove('active');
+      const openIcon = chatbotToggleBtn.querySelector('.chatbot-icon-open');
+      const closeIcon = chatbotToggleBtn.querySelector('.chatbot-icon-close');
+      if (openIcon) openIcon.style.display = 'block';
+      if (closeIcon) closeIcon.style.display = 'none';
+    }
+  };
+
+  if (chatbotToggleBtn) {
+    chatbotToggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (chatbotWidget && chatbotWidget.classList.contains('active')) {
+        closeChatbot();
+      } else {
+        openChatbot();
+      }
+    });
+  }
+
+  if (chatbotCloseBtn) {
+    chatbotCloseBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeChatbot();
+    });
+  }
+
+  // Reset conversation button with smooth visual animation & toast feedback
+  if (chatbotResetBtn) {
+    chatbotResetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // 1. Spin the reset icon
+      const icon = chatbotResetBtn.querySelector('.reset-icon');
+      if (icon) {
+        icon.classList.remove('rotating');
+        void icon.offsetWidth; // trigger reflow
+        icon.classList.add('rotating');
+        setTimeout(() => icon.classList.remove('rotating'), 650);
+      }
+
+      // 2. Show toast feedback
+      if (chatbotToast) {
+        chatbotToast.classList.remove('show');
+        void chatbotToast.offsetWidth;
+        chatbotToast.classList.add('show');
+        setTimeout(() => chatbotToast.classList.remove('show'), 2200);
+      }
+
+      // 3. Reset history to initial greeting
+      chatHistory = [
+        {
+          ...initialBotGreeting,
+          time: getFormattedTime()
+        }
+      ];
+      saveChatHistory();
+      renderAllChatMessages();
+
+      // 4. Reset input & chip scroll position
+      if (chatbotInput) chatbotInput.value = '';
+      if (chatbotChipsBar) {
+        chatbotChipsBar.scrollLeft = 0;
+        updateChipsNavVisibility();
+      }
+    });
+  }
+
+  // Category Filter Helper
+  window.filterCatalogByCategory = function(categoryName) {
+    const cb = Array.from(document.querySelectorAll('.cat-checkbox')).find(c => 
+      c.value.toLowerCase() === categoryName.toLowerCase()
+    );
+    if (cb) {
+      cb.checked = true;
+      cb.dispatchEvent(new Event('change'));
+    } else {
+      activeFilters.category = categoryName;
+      applyCatalogFilters();
+    }
+    const catSection = document.getElementById('koleksi');
+    if (catSection) {
+      catSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Delegated handler for interactive action buttons inside bot bubbles
+  if (chatbotBody) {
+    chatbotBody.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chat-action-btn');
+      if (!btn) return;
+      const act = btn.dataset.action;
+      if (act === 'send-query') {
+        const query = btn.dataset.query;
+        if (query) handleUserSubmit(query);
+      } else if (act === 'filter-cat') {
+        const cat = btn.dataset.category;
+        window.filterCatalogByCategory(cat);
+      } else if (act === 'open-detail') {
+        const kebaya = btn.dataset.kebaya;
+        if (typeof window.openKebayaDetail === 'function') {
+          window.openKebayaDetail(kebaya);
+        }
+      } else if (act === 'open-wishlist') {
+        if (typeof window.openWishlistDrawer === 'function') {
+          window.openWishlistDrawer();
+        }
+      } else if (act === 'scroll-to') {
+        const target = btn.dataset.target;
+        const el = document.querySelector(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  // =========================================================================
+  // CHATBOT CHIPS HORIZONTAL DRAG, WHEEL & BUTTON SCROLL LOGIC
+  // =========================================================================
+  let isChipsDragging = false;
+  let chipsMouseDown = false;
+  let chipsStartX = 0;
+  let chipsScrollLeft = 0;
+
+  function updateChipsNavVisibility() {
+    if (!chatbotChipsBar) return;
+    const sLeft = chatbotChipsBar.scrollLeft;
+    const maxScroll = chatbotChipsBar.scrollWidth - chatbotChipsBar.clientWidth;
+
+    if (chatbotChipsPrev) {
+      if (sLeft > 8) {
+        chatbotChipsPrev.classList.remove('hidden');
+      } else {
+        chatbotChipsPrev.classList.add('hidden');
+      }
+    }
+
+    if (chatbotChipsNext) {
+      if (maxScroll > 6 && sLeft < maxScroll - 8) {
+        chatbotChipsNext.classList.remove('hidden');
+      } else {
+        chatbotChipsNext.classList.add('hidden');
+      }
+    }
+  }
+
+  if (chatbotChipsBar) {
+    // 1. Mouse Drag-to-Scroll (Klik dan Geser)
+    chatbotChipsBar.addEventListener('mousedown', (e) => {
+      chipsMouseDown = true;
+      isChipsDragging = false;
+      chipsStartX = e.pageX - chatbotChipsBar.offsetLeft;
+      chipsScrollLeft = chatbotChipsBar.scrollLeft;
+      chatbotChipsBar.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (chipsMouseDown) {
+        chipsMouseDown = false;
+        chatbotChipsBar.classList.remove('is-dragging');
+        setTimeout(() => {
+          isChipsDragging = false;
+        }, 50);
+      }
+    });
+
+    chatbotChipsBar.addEventListener('mousemove', (e) => {
+      if (!chipsMouseDown) return;
+      const x = e.pageX - chatbotChipsBar.offsetLeft;
+      const walk = (x - chipsStartX) * 1.5;
+      if (Math.abs(x - chipsStartX) > 4) {
+        isChipsDragging = true;
+      }
+      chatbotChipsBar.scrollLeft = chipsScrollLeft - walk;
+      updateChipsNavVisibility();
+    });
+
+    // 2. Mouse Wheel Horizontal Scroll
+    chatbotChipsBar.addEventListener('wheel', (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        chatbotChipsBar.scrollLeft += e.deltaY;
+        updateChipsNavVisibility();
+      }
+    }, { passive: false });
+
+    // 3. Scroll update
+    chatbotChipsBar.addEventListener('scroll', updateChipsNavVisibility, { passive: true });
+
+    // 4. Click delegation on chips (ignoring clicks when user dragged/geser)
+    chatbotChipsBar.addEventListener('click', (e) => {
+      if (isChipsDragging) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+      const chip = e.target.closest('.chatbot-chip');
+      if (!chip) return;
+      const query = chip.dataset.query;
+      if (query) handleUserSubmit(query);
+    });
+  }
+
+  // 5. Arrow button clicks
+  if (chatbotChipsPrev) {
+    chatbotChipsPrev.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (chatbotChipsBar) {
+        chatbotChipsBar.scrollBy({ left: -140, behavior: 'smooth' });
+      }
+    });
+  }
+
+  if (chatbotChipsNext) {
+    chatbotChipsNext.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (chatbotChipsBar) {
+        chatbotChipsBar.scrollBy({ left: 140, behavior: 'smooth' });
+      }
+    });
+  }
+
+  // =========================================================================
+  // INTELLIGENT KNOWLEDGE BASE & INTENT ANALYZER
+  // =========================================================================
+  function generateBotResponse(rawQuery) {
+    const q = rawQuery.toLowerCase();
+
+    // 1. Wisuda / Graduation
+    if (q.includes('wisuda') || q.includes('graduation') || q.includes('toga') || q.includes('sidang') || q.includes('kuliah') || q.includes('kampus')) {
+      return {
+        text: `Untuk momen **Wisuda & Graduation** yang berkesan dan anggun, kami merekomendasikan:\n\n• **Kebaya Nirmala (Sage Green)** - Model Kutubaru modern dengan warna sage segar, brokat ringan & sangat adem seharian. (Rp 250.000 / Diskon 20%)\n• **Kebaya Saraswati (Lilac / Soft Blue)** - Desain youthful & anggun, sangat fotogenik dipadukan topi toga. (Rp 260.000)\n• **Kebaya Ayodhya (Dusty Pink)** - Aksen payet mutiara mewah dan lembut. (Rp 300.000)\n\n✨ Semua paket wisuda sudah include: kebaya, rok jarik plisket, obi belt, dan **free fitting/vermak ringan**!`,
+        actions: [
+          { text: '👗 Lihat Katalog Wisuda', action: 'filter-cat', category: 'Wisuda' },
+          { text: '✨ Detail Kebaya Nirmala', action: 'open-detail', kebaya: 'Kebaya Nirmala' },
+          { text: '💬 Tanya Stok via WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya tertarik dengan kebaya wisuda.' }
+        ]
+      };
+    }
+
+    // 2. Akad / Pernikahan / Bridal / Wedding
+    if (q.includes('akad') || q.includes('nikah') || q.includes('pengantin') || q.includes('wedding') || q.includes('bridal') || q.includes('ijab') || q.includes('resepsi')) {
+      return {
+        text: `Selamat atas persiapan hari bahagia Kakak! 🤍 Untuk **Akad & Bridal Wedding**, Svasti menghadirkan koleksi mahakarya eksklusif:\n\n• **Kebaya Maheswari (Pure White & Ivory)** - Bertabur kristal swarovski dengan veil renda Prancis mewah, siluet anggun memukau. (Rp 350.000 / Diskon 15%)\n• **Kebaya Gayatri (Champagne & Rose Gold)** - Sentuhan royal bridal mewah dengan detail bordir emas dan train ekor menjuntai. (Rp 380.000)\n\n✨ Sudah termasuk veil pengantin, kain bawahan premium, roncean melati sintetis mewah, dan gratis fitting langsung di butik kami.`,
+        actions: [
+          { text: '💍 Lihat Koleksi Akad', action: 'filter-cat', category: 'Akad' },
+          { text: '✨ Detail Kebaya Maheswari', action: 'open-detail', kebaya: 'Kebaya Maheswari' },
+          { text: '💬 Konsultasi Bridal di WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin konsultasi sewa kebaya untuk akad nikah.' }
+        ]
+      };
+    }
+
+    // 3. Lamaran / Tunangan / Engagement
+    if (q.includes('lamaran') || q.includes('tunangan') || q.includes('engagement') || q.includes('tunang')) {
+      return {
+        text: `Untuk prosesi **Lamaran & Engagement** yang sakral dan manis:\n\n• **Kebaya Ayodhya (Dusty Pink & Mauve)** - Detail bordir bunga 3D dan payet mutiara yang paling dicari calon mempelai. (Rp 300.000 / Diskon 15%)\n• **Kebaya Cempaka (Terracotta & Rose Gold)** - Nuansa earth tone hangat dengan detail kancing bungkus modern kontemporer. (Rp 320.000)\n\n✨ Tersedia juga **Beskap Pria Couple** senada untuk pasangan Kakak!`,
+        actions: [
+          { text: '🌸 Lihat Koleksi Lamaran', action: 'filter-cat', category: 'Lamaran' },
+          { text: '✨ Detail Kebaya Ayodhya', action: 'open-detail', kebaya: 'Kebaya Ayodhya' },
+          { text: '💬 Tanya Paket Couple WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya mau tanya paket kebaya lamaran & beskap couple.' }
+        ]
+      };
+    }
+
+    // 4. Kondangan / Pesta / Gala Dinner / Hitam / Mewah
+    if (q.includes('kondangan') || q.includes('pesta') || q.includes('gala') || q.includes('dinner') || q.includes('party') || q.includes('mewah') || q.includes('glamor') || q.includes('hitam') || q.includes('black')) {
+      return {
+        text: `Tampil memikat dan percaya diri di pesta malam & acara keluarga:\n\n• **Kebaya Kirana (Midnight Black & Gold)** - Brokat hitam berpadu bordir emas antik glamor, potongan slim-fit mewah. (Rp 300.000 / Diskon 20%)\n• **Kebaya Danastri (Emerald Green & Navy)** - Bahan velvet beludru halus beraksen payet berkilau saat terkena sorot lampu pesta. (Rp 280.000)\n\n✨ Sangat pas untuk gala dinner, resepsi malam, maupun seragam keluarga.`,
+        actions: [
+          { text: '👗 Lihat Koleksi Kondangan', action: 'filter-cat', category: 'Kondangan' },
+          { text: '✨ Detail Kebaya Kirana', action: 'open-detail', kebaya: 'Kebaya Kirana' },
+          { text: '💬 Booking Cepat via WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin sewa kebaya pesta/kondangan.' }
+        ]
+      };
+    }
+
+    // 5. Harga / Biaya / Tarif / Diskon / Promo / Durasi
+    if (q.includes('harga') || q.includes('biaya') || q.includes('sewa') || q.includes('tarif') || q.includes('ongkos') || q.includes('pricelist') || q.includes('price') || q.includes('diskon') || q.includes('promo') || q.includes('durasi') || q.includes('hari') || q.includes('ekstensi')) {
+      return {
+        text: `💰 **Daftar Harga & Ketentuan Sewa Svasti Kebaya:**\n\n• **Kisaran Harga:** Rp 250.000 - Rp 380.000 per set lengkap (ada promo diskon 15% - 20%).\n• **Paket Termasuk:** Kebaya atasan + rok bawahan batik/plisket + kemben/manset + obi belt + laundry higienis.\n• **Durasi Standar:** 3 Hari (H-1 pengambilan/kirim, Hari H pemakaian, H+1 pengembalian).\n• **Perpanjangan Durasi:** 5 hari (+30%) atau 7 hari (+50%).\n• **Bebas Repot Cuci:** Kakak **TIDAK PERLU mencuci** kebaya saat mengembalikan! Dry clean sudah ditanggung tim kami.`,
+        actions: [
+          { text: '🏷️ Buka Katalog & Diskon', action: 'scroll-to', target: '#koleksi' },
+          { text: '💖 Buka Wishlist Saya', action: 'open-wishlist' },
+          { text: '💬 Cek Total Biaya via WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin menanyakan rincian harga sewa.' }
+        ]
+      };
+    }
+
+    // 6. Ukuran (Size) / Fitting / LD / Lingkar Dada / Custom
+    if (q.includes('ukuran') || q.includes('size') || q.includes('fitting') || q.includes('ld') || q.includes('lingkar dada') || q.includes('muat') || q.includes('gemuk') || q.includes('kurus') || q.includes('jumbo') || q.includes('vermak') || q.includes('pas') || q.includes('panjang')) {
+      return {
+        text: `📏 **Panduan Ukuran (Size Chart) Svasti:**\n\n• **XS:** Lingkar Dada 80 - 84 cm\n• **S:** Lingkar Dada 86 - 88 cm\n• **M:** Lingkar Dada 90 - 94 cm\n• **L:** Lingkar Dada 96 - 100 cm\n• **XL:** Lingkar Dada 102 - 106 cm\n• **XXL:** Lingkar Dada 108 - 114 cm\n\n✨ **Fasilitas Fitting Svasti:**\n• Gratis fitting langsung di butik galeri kami.\n• Free penyesuaian kancing/peniti ringan agar pas di badan Kakak.\n• Untuk pesanan online, tim kami memandu cara ukur praktis via WhatsApp.`,
+        actions: [
+          { text: '📍 Info Lokasi Butik', action: 'send-query', query: 'Lokasi galeri dan jam operasional' },
+          { text: '💬 Panduan Ukur via WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin konsultasi ukuran & fitting kebaya.' }
+        ]
+      };
+    }
+
+    // 7. Lokasi / Alamat / Jam Buka / Galeri / Butik
+    if (q.includes('lokasi') || q.includes('alamat') || q.includes('dimana') || q.includes('tempat') || q.includes('toko') || q.includes('butik') || q.includes('galeri') || q.includes('buka') || q.includes('jam') || q.includes('operasional') || q.includes('kapan')) {
+      return {
+        text: `📍 **Lokasi Galeri Svasti Kebaya Rental:**\nJl. Kebaya Indah No. 88, Kebayoran Baru, Jakarta Selatan (Akses mudah & parkir luas).\n\n⏰ **Jam Operasional Butik:**\n• Buka setiap hari: **09.00 - 20.00 WIB** (Senin s/d Minggu tetap buka).\n\nKakak dipersilakan datang langsung untuk melihat ratusan koleksi cantik & mencoba ruang fitting eksklusif kami!`,
+        actions: [
+          { text: '🗺️ Buka Kontak & Peta', action: 'scroll-to', target: '#kontak' },
+          { text: '💬 Buat Janji Fitting WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin menjadwalkan kunjungan fitting ke butik.' }
+        ]
+      };
+    }
+
+    // 8. Cara Sewa / Alur Booking / Alur Pemesanan
+    if (q.includes('cara') || q.includes('alur') || q.includes('booking') || q.includes('pesan') || q.includes('order') || q.includes('gimana') || q.includes('langkah') || q.includes('prosedur')) {
+      return {
+        text: `✨ **Alur Pemesanan Sewa Mudah di Svasti:**\n\n1. **Pilih Kebaya:** Cari kebaya impian di katalog & simpan ke Wishlist.\n2. **Tentukan Tanggal:** Pilih tanggal acara & cek ketersediaan size.\n3. **Booking DP:** Pembayaran DP 50% untuk mengunci tanggal pemakaian.\n4. **Fitting & Ambil:** Ambil di butik H-1 acara atau dikirim via kurir instan/ekspedisi.\n5. **Kembalikan:** Pengembalian H+1 setelah acara (tidak perlu dicuci).`,
+        actions: [
+          { text: '👗 Buka Katalog Sekarang', action: 'scroll-to', target: '#koleksi' },
+          { text: '💖 Cek Wishlist Saya', action: 'open-wishlist' },
+          { text: '💬 Hubungi Admin via WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin booking sewa kebaya.' }
+        ]
+      };
+    }
+
+    // 9. Cuci / Laundry / Kebersihan
+    if (q.includes('cuci') || q.includes('laundry') || q.includes('dicuci') || q.includes('kotor') || q.includes('bersih') || q.includes('higienis')) {
+      return {
+        text: `Kakak tidak perlu khawatir soal kebersihan! ✨\n\n• Semua kebaya di Svasti melewati proses **dry clean uap higienis & sterilisasi UV** sebelum diserahkan.\n• Setelah acara selesai, Kakak **TIDAK PERLU mencuci** kebayanya, cukup kembalikan ke butik dan kami yang urus seluruh perawatannya tanpa biaya tambahan!`,
+        actions: [
+          { text: '👗 Lihat Katalog Kebaya', action: 'scroll-to', target: '#koleksi' },
+          { text: '💬 Konsultasi via WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin tanya seputar perawatan kebaya.' }
+        ]
+      };
+    }
+
+    // 10. Pasangan / Pria / Beskap / Couple
+    if (q.includes('pria') || q.includes('cowok') || q.includes('laki') || q.includes('beskap') || q.includes('jas') || q.includes('pasangan') || q.includes('couple')) {
+      return {
+        text: `Kami juga menyediakan **Beskap Pria & Setelan Couple** senada untuk acara Akad, Lamaran, dan Pesta! 🤵👰\n\nSetiap beskap sudah dilengkapi kain bawahan motif kembar dan blangkon premium. Silakan tanyakan ketersediaan size dan warna ke Admin kami.`,
+        actions: [
+          { text: '💬 Tanya Paket Couple WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin tanya ketersediaan beskap pria couple.' },
+          { text: '🌸 Koleksi Lamaran', action: 'filter-cat', category: 'Lamaran' }
+        ]
+      };
+    }
+
+    // 11. Wishlist
+    if (q.includes('wishlist') || q.includes('keranjang') || q.includes('simpan') || q.includes('disimpan') || q.includes('favorit')) {
+      return {
+        text: `Kakak bisa menyimpan kebaya favorit dengan menekan tombol **Hati (🤍)** pada setiap kebaya di katalog.\n\nSemua kebaya yang disimpan akan terkumpul di drawer Wishlist beserta ringkasan diskon dan tombol sewa otomatis!`,
+        actions: [
+          { text: '💖 Buka Wishlist Sekarang', action: 'open-wishlist' },
+          { text: '👗 Jelajahi Koleksi', action: 'scroll-to', target: '#koleksi' }
+        ]
+      };
+    }
+
+    // 12. Kontak / Admin / WhatsApp CS
+    if (q.includes('admin') || q.includes('cs') || q.includes('whatsapp') || q.includes('wa') || q.includes('kontak') || q.includes('hubungi') || q.includes('telepon') || q.includes('nomor')) {
+      return {
+        text: `Tim customer service Svasti siap melayani Kakak dengan ramah dan responsif! 🌸\n\n📱 **WhatsApp Official:** 0859-7372-9267\n📧 **Email:** info@svastikebaya.id\n📍 **Galeri:** Kebayoran Baru, Jakarta Selatan\n\nKlik tombol di bawah untuk langsung terhubung ke WhatsApp Admin kami:`,
+        actions: [
+          { text: '💬 Hubungi WhatsApp Admin', action: 'open-wa', msg: 'Halo Admin Svasti Kebaya, saya ingin bertanya seputar sewa kebaya.' }
+        ]
+      };
+    }
+
+    // 13. Greetings / Salam
+    if (q.includes('halo') || q.includes('hai') || q.includes('hello') || q.includes('hi') || q.includes('pagi') || q.includes('siang') || q.includes('sore') || q.includes('malam') || q.includes('assalamualaikum') || q.includes('permisi')) {
+      return {
+        text: `Halo Kak! Senang sekali bisa menyapa Kakak. ✨ Ada kebutuhan acara apa yang sedang dipersiapkan? Saya siap memberikan rekomendasi kebaya terbaik yang pas dengan gaya dan budget Kakak.`,
+        actions: [
+          { text: '🎓 Rekomendasi Wisuda', action: 'send-query', query: 'Rekomendasi Wisuda' },
+          { text: '💍 Kebaya Akad Nikah', action: 'send-query', query: 'Koleksi Kebaya Akad' },
+          { text: '🌸 Kebaya Lamaran', action: 'send-query', query: 'Kebaya Lamaran' },
+          { text: '👗 Kondangan / Pesta', action: 'send-query', query: 'Kondangan & Pesta' }
+        ]
+      };
+    }
+
+    // 14. Terima kasih & Pujian
+    if (q.includes('terima kasih') || q.includes('makasih') || q.includes('thanks') || q.includes('keren') || q.includes('bagus') || q.includes('ok') || q.includes('oke') || q.includes('siap') || q.includes('mantap')) {
+      return {
+        text: `Sama-sama Kak! Senang sekali bisa membantu Kakak. 🌸 Jangan ragu bertanya lagi jika butuh rekomendasi model atau fitting. Semoga momen spesial Kakak berjalan lancar dan memukau bersama Svasti Kebaya! ✨`,
+        actions: [
+          { text: '👗 Jelajahi Koleksi', action: 'scroll-to', target: '#koleksi' },
+          { text: '💬 Hubungi Admin via WA', action: 'open-wa', msg: 'Halo Svasti Kebaya, saya ingin reservasi kebaya.' }
+        ]
+      };
+    }
+
+    // 15. Default / Fallback Response
+    return {
+      text: `Terima kasih pertanyaannya Kak! Sebagai asisten virtual Svasti Kebaya, saya dapat membantu memberikan info seputar:\n\n• **Rekomendasi Kebaya** (Wisuda, Akad, Lamaran, Kondangan)\n• **Harga Sewa & Promo Diskon** (Mulai Rp 250.000 / 3 hari)\n• **Panduan Ukuran & Fitting** (XS hingga XXL)\n• **Lokasi Butik Galeri & Jam Buka** (09.00 - 20.00 WIB)\n\nAtau Kakak bisa langsung ngobrol dengan Admin kami via WhatsApp untuk konsultasi khusus!`,
+      actions: [
+        { text: '🎓 Rekomendasi Wisuda', action: 'send-query', query: 'Rekomendasi Wisuda' },
+        { text: '💍 Koleksi Akad', action: 'send-query', query: 'Koleksi Kebaya Akad' },
+        { text: '💰 Harga & Diskon', action: 'send-query', query: 'Berapa harga sewa dan diskon?' },
+        { text: '💬 Chat WhatsApp Admin', action: 'open-wa', msg: 'Halo Admin Svasti Kebaya, saya ingin konsultasi sewa kebaya.' }
+      ]
+    };
+  }
+
+  function handleUserSubmit(queryText) {
+    const text = (queryText || '').trim();
+    if (!text) return;
+
+    // 1. Add user message
+    const userMsg = {
+      sender: 'user',
+      text: text,
+      time: getFormattedTime()
+    };
+    chatHistory.push(userMsg);
+    saveChatHistory();
+    if (chatbotMessages) {
+      chatbotMessages.appendChild(renderMessageItem(userMsg));
+    }
+    scrollChatToBottom();
+
+    // Clear input
+    if (chatbotInput) chatbotInput.value = '';
+
+    // Show typing indicator
+    if (chatbotTyping) {
+      chatbotTyping.style.display = 'inline-flex';
+      scrollChatToBottom();
+    }
+
+    // Realistic delay for bot response
+    const delay = Math.min(800, Math.max(450, text.length * 15));
+    setTimeout(() => {
+      if (chatbotTyping) {
+        chatbotTyping.style.display = 'none';
+      }
+
+      const botReply = generateBotResponse(text);
+      const botMsg = {
+        sender: 'bot',
+        text: botReply.text,
+        actions: botReply.actions,
+        time: getFormattedTime()
+      };
+
+      chatHistory.push(botMsg);
+      saveChatHistory();
+
+      if (chatbotMessages) {
+        chatbotMessages.appendChild(renderMessageItem(botMsg));
+      }
+      playChatSound();
+      scrollChatToBottom();
+    }, delay);
+  }
+
+  if (chatbotForm) {
+    chatbotForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (chatbotInput) {
+        handleUserSubmit(chatbotInput.value);
+      }
+    });
+  }
+
+  // Initial render of chat messages
+  renderAllChatMessages();
+
+  // Keyboard accessibility (ESC to close modals and chatbot)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeDetailModal();
       closeVideoModal();
       closeWishlistDrawer();
+      closeChatbot();
       if (mobileNavDrawer) mobileNavDrawer.classList.remove('active');
     }
   });
 
-  console.log("Svasti Kebaya Rental initialized successfully with luxury 3D aesthetics!");
+  console.log("Svasti Kebaya Rental initialized successfully with luxury 3D aesthetics, Back to Top, and AI Chatbot!");
 });

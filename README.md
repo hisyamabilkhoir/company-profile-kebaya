@@ -49,10 +49,21 @@ Landing page company profile modern & mewah untuk **SVASTI Kebaya Rental**, dira
    - Pemilihan ukuran, tanggal acara/fitting, dan durasi sewa.
    - Tombol **"Hubungi via WhatsApp"** otomatis menghasilkan pesan terformat rapi sesuai pilihan user.
 
-10. **Responsif & Mobile First**:
+10. **Tombol Kembali ke Atas (Back to Top)**:
+    - Muncul otomatis saat pengguna menggulir ke bawah (`scrollY > 350px`) dengan animasi transisi yang mulus.
+    - Mengembalikan tampilan ke posisi paling atas dengan *smooth scroll*.
+
+11. **Chatbot Virtual Stylist 24/7 (AI Asisten Kebaya)**:
+    - Widget chatbot interaktif dengan estetika *luxury Indonesian* (maroon & champagne gold).
+    - Memahami pertanyaan seputar rekomendasi kebaya (Wisuda, Akad, Lamaran, Kondangan), daftar harga sewa, panduan ukuran (size chart XS-XXL), durasi & cara sewa, lokasi galeri, hingga perawatan higienis (free dry clean).
+    - Dilengkapi *Quick Prompt Chips* untuk pertanyaan cepat.
+    - Tombol aksi langsung (*direct action pills*) di dalam pesan: filter katalog otomatis, buka modal detail produk, buka drawer wishlist, dan sambung ke WhatsApp Admin.
+    - Indikator mengetik (*typing animation*), efek suara chime sintetis Web Audio API, serta penyimpanan riwayat percakapan (*sessionStorage*).
+
+12. **Responsif & Mobile First**:
     - Tampilan optimal di desktop, tablet, dan smartphone (iPhone/Android).
     - Mobile navigation drawer dengan animasi halus.
-    - Tombol WhatsApp melayang (*floating action button*) di sudut kanan bawah.
+    - Dock melayang terintegrasi (*floating action controls*) di sudut kanan bawah: Tombol WhatsApp, AI Chatbot, dan Back to Top.
 
 ---
 
