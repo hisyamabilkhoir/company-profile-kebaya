@@ -71,14 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 1,
       name: "Kebaya Maheswari",
       category: "Akad",
+      collection: "Akad Collection",
       status: "Baru",
+      crown: false,
       originalPrice: "Rp 420.000",
       discount: "15% OFF",
       price: "Rp 350.000",
       priceNum: 350000,
       image: "assets/images/card_maheswari.png",
-      colors: ["#FFFFFF", "#F5EFE6", "#D4AF37"],
-      colorNames: ["Putih", "Cream", "Gold"],
+      colors: ["#FFFFFF", "#F5EFE6", "#D4AF37", "#B56576", "#431422"],
+      colorNames: ["Putih", "Cream", "Gold", "Dusty Pink", "Maroon"],
       sizes: ["S", "M", "L", "XL"],
       popularity: 98
     },
@@ -86,14 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 2,
       name: "Kebaya Ayodhya",
       category: "Lamaran",
+      collection: "Lamaran Collection",
       status: "Populer",
+      crown: true,
       originalPrice: "Rp 360.000",
       discount: "15% OFF",
       price: "Rp 300.000",
       priceNum: 300000,
       image: "assets/images/card_ayodhya.png",
-      colors: ["#D8A4B8", "#B56576", "#8A9A86"],
-      colorNames: ["Dusty Pink", "Mauve", "Sage"],
+      colors: ["#D8A4B8", "#B56576", "#D5C5B5", "#8A9A86"],
+      colorNames: ["Dusty Pink", "Mauve", "Champagne", "Sage"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       popularity: 99
     },
@@ -101,14 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 3,
       name: "Kebaya Nirmala",
       category: "Wisuda",
+      collection: "Wisuda Collection",
       status: "Favorit",
+      crown: true,
       originalPrice: "Rp 310.000",
       discount: "20% OFF",
       price: "Rp 250.000",
       priceNum: 250000,
       image: "assets/images/card_nirmala.png",
-      colors: ["#8A9A86", "#B56576", "#4A4E69"],
-      colorNames: ["Sage", "Mauve", "Navy"],
+      colors: ["#8A9A86", "#B56576", "#5A1F30", "#1D2D44"],
+      colorNames: ["Sage", "Mauve", "Burgundy", "Navy"],
       sizes: ["S", "M", "L"],
       popularity: 92
     },
@@ -116,14 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 4,
       name: "Kebaya Kirana",
       category: "Kondangan",
+      collection: "Kondangan Collection",
       status: "Pilihan",
+      crown: false,
       originalPrice: "Rp 375.000",
       discount: "20% OFF",
       price: "Rp 300.000",
       priceNum: 300000,
       image: "assets/images/card_kirana.png",
-      colors: ["#F5EFE6", "#5A1F30", "#1F1F1F"],
-      colorNames: ["Cream", "Maroon", "Hitam"],
+      colors: ["#F5EFE6", "#D4AF37", "#431422", "#1F1F1F"],
+      colorNames: ["Cream", "Gold", "Maroon", "Hitam"],
       sizes: ["S", "M", "L", "XL"],
       popularity: 95
     },
@@ -320,6 +328,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   startHeroAutoPlay();
+
+  // Mobile Touch Swipe Gesture Support
+  const heroBannerCard = document.querySelector('.hero-banner-card');
+  if (heroBannerCard) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    heroBannerCard.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    heroBannerCard.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diffX = touchEndX - touchStartX;
+      if (Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          updateHeroSlide(currentSlideIndex + 1);
+        } else {
+          updateHeroSlide(currentSlideIndex - 1);
+        }
+        resetHeroAutoPlay();
+      }
+    }, { passive: true });
+  }
 
   // =========================================================================
   // 3. BOTTOM MOMENTS DOCK FILTER
@@ -613,25 +645,35 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
       `<span class="color-dot" style="background-color: ${c}" title="${item.colorNames[i] || ''}"></span>`
     ).join('');
 
+    let statusText = item.status ? item.status.toUpperCase() : '';
+    if (item.crown || item.status === 'Populer' || item.status === 'Favorit') {
+      statusText = `${item.status.toUpperCase()} 👑`;
+    }
+
     return `
       <div class="kebaya-card" onclick="openKebayaDetail('${item.name}')">
         <div class="kebaya-card-media">
           <img src="${item.image}" alt="${item.name}" loading="lazy">
-          <span class="kebaya-tag-badge">${item.category}</span>
           <div class="kebaya-badges-top-left">
-            ${item.status ? `<span class="kebaya-status-badge">${item.status}</span>` : ''}
+            ${statusText ? `<span class="kebaya-status-badge">${statusText}</span>` : ''}
             <span class="kebaya-discount-badge">${item.discount || '15% OFF'}</span>
           </div>
           <button class="kebaya-wishlist-btn ${isWishlisted ? 'active' : ''}" 
                   onclick="toggleWishlist('${item.name}', event)" 
-                  title="Simpan ke Wishlist">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="${isWishlisted ? '#E63946' : 'none'}" stroke="currentColor" stroke-width="2">
+                  title="Simpan ke Wishlist" aria-label="Simpan ke Wishlist">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#E63946" stroke="#E63946" stroke-width="1.2">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
           </button>
         </div>
         <div class="kebaya-card-body">
           <h4 class="kebaya-card-title">${item.name}</h4>
+          <div class="kebaya-card-category-row">
+            <svg class="kebaya-spark-icon" width="12" height="12" viewBox="0 0 24 24" fill="#C69A5A">
+              <path d="M12 2L14.4 8.6L21 11L14.4 13.4L12 20L9.6 13.4L3 11L9.6 8.6L12 2Z"/>
+            </svg>
+            <span class="kebaya-card-collection">${item.collection || item.category + ' Collection'}</span>
+          </div>
           <div class="kebaya-card-swatches">
             ${swatchesHTML}
           </div>
@@ -641,24 +683,330 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
                 <span class="kebaya-original-price">${item.originalPrice || 'Rp 360.000'}</span>
                 <span class="kebaya-discount-pill">${item.discount || '15% OFF'}</span>
               </div>
-              <span class="kebaya-card-price">${item.price} <small style="font-size:0.75rem;font-weight:400;color:var(--text-muted)">/ sewa</small></span>
+              <div class="kebaya-card-price-main">
+                <strong class="kebaya-card-price">${item.price}</strong>
+                <span class="kebaya-price-suffix"> / sewa</span>
+              </div>
             </div>
-            <button class="kebaya-card-action-btn" title="Lihat Detail & Sewa">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
+            <button class="kebaya-card-cart-btn" onclick="openKebayaDetail('${item.name}'); event.stopPropagation();" title="Sewa ${item.name}" aria-label="Sewa ${item.name}">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
               </svg>
             </button>
+          </div>
+          <!-- Decorative floral watermark in bottom right -->
+          <div class="kebaya-card-watermark" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 100 100" fill="none" stroke="rgba(198, 154, 90, 0.35)" stroke-width="1.8">
+              <path d="M50 15 C45 35, 15 45, 15 50 C35 55, 45 85, 50 85 C55 85, 65 55, 85 50 C65 45, 55 35, 50 15 Z"/>
+              <circle cx="50" cy="50" r="10" stroke="rgba(198, 154, 90, 0.28)" stroke-width="1.5"/>
+              <path d="M50 28 C40 40, 28 50, 50 72 C72 50, 60 40, 50 28 Z"/>
+            </svg>
           </div>
         </div>
       </div>
     `;
   }
 
-  function renderFeaturedCards() {
+  // Curated 4-items sets for every category tab in Koleksi Unggulan
+  const featuredCategoryItems = {
+    'Semua': [
+      kebayaCatalog[0], // Maheswari
+      kebayaCatalog[1], // Ayodhya
+      kebayaCatalog[2], // Nirmala
+      kebayaCatalog[3]  // Kirana
+    ],
+    'Akad': [
+      {
+        ...kebayaCatalog[0],
+        collection: 'Akad Royal White',
+        status: 'Baru',
+        discount: '15% OFF'
+      },
+      {
+        ...kebayaCatalog[7],
+        name: 'Kebaya Gayatri',
+        collection: 'Akad Bridal Gold',
+        status: 'Populer 👑',
+        discount: '15% OFF',
+        price: 'Rp 380.000',
+        originalPrice: 'Rp 450.000'
+      },
+      {
+        ...kebayaCatalog[1],
+        name: 'Kebaya Puspa Kencana',
+        collection: 'Akad Solo Putri',
+        status: 'Favorit',
+        discount: '20% OFF',
+        price: 'Rp 340.000',
+        originalPrice: 'Rp 420.000'
+      },
+      {
+        ...kebayaCatalog[3],
+        name: 'Kebaya Shinta Ayu',
+        collection: 'Akad Sunda Siger',
+        status: 'Pilihan',
+        discount: '20% OFF',
+        price: 'Rp 330.000',
+        originalPrice: 'Rp 410.000'
+      }
+    ],
+    'Lamaran': [
+      {
+        ...kebayaCatalog[1],
+        collection: 'Lamaran Collection',
+        status: 'Populer 👑',
+        discount: '15% OFF'
+      },
+      {
+        ...kebayaCatalog[4],
+        name: 'Kebaya Renjana',
+        collection: 'Lamaran Blush Peach',
+        status: 'Baru',
+        discount: '15% OFF',
+        price: 'Rp 295.000',
+        originalPrice: 'Rp 350.000'
+      },
+      {
+        ...kebayaCatalog[5],
+        name: 'Kebaya Danastri',
+        collection: 'Lamaran Sage Elegance',
+        status: 'Favorit 👑',
+        discount: '20% OFF',
+        price: 'Rp 310.000',
+        originalPrice: 'Rp 380.000'
+      },
+      {
+        ...kebayaCatalog[6],
+        name: 'Kebaya Kalila',
+        collection: 'Lamaran Royal Maroon',
+        status: 'Pilihan',
+        discount: '20% OFF',
+        price: 'Rp 320.000',
+        originalPrice: 'Rp 400.000'
+      }
+    ],
+    'Wisuda': [
+      {
+        ...kebayaCatalog[2],
+        collection: 'Wisuda Collection',
+        status: 'Favorit 👑',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[5],
+        name: 'Kebaya Laksmi',
+        collection: 'Wisuda Kutubaru Chic',
+        status: 'Populer',
+        discount: '18% OFF'
+      },
+      {
+        ...kebayaCatalog[4],
+        name: 'Kebaya Anindita',
+        collection: 'Wisuda Modern Lilac',
+        status: 'Baru',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[1],
+        name: 'Kebaya Candramaya',
+        collection: 'Wisuda Soft Pastel',
+        status: 'Pilihan',
+        discount: '15% OFF'
+      }
+    ],
+    'Bridesmaid': [
+      {
+        ...kebayaCatalog[4],
+        collection: 'Bridesmaid Collection',
+        status: 'Baru 👑',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[1],
+        name: 'Kebaya Ayodhya',
+        collection: 'Bridesmaid Rose Mauve',
+        status: 'Populer',
+        discount: '15% OFF'
+      },
+      {
+        ...kebayaCatalog[2],
+        name: 'Kebaya Nirmala',
+        collection: 'Bridesmaid Sage Blossom',
+        status: 'Favorit',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[5],
+        name: 'Kebaya Laksmi',
+        collection: 'Bridesmaid Champagne',
+        status: 'Pilihan',
+        discount: '18% OFF'
+      }
+    ],
+    'Kondangan': [
+      {
+        ...kebayaCatalog[3],
+        collection: 'Kondangan Collection',
+        status: 'Pilihan 👑',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[6],
+        collection: 'Kondangan Royal Maroon',
+        status: 'Eksklusif',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[5],
+        name: 'Kebaya Laksmi',
+        collection: 'Kondangan Modern Silk',
+        status: 'Populer',
+        discount: '18% OFF'
+      },
+      {
+        ...kebayaCatalog[2],
+        name: 'Kebaya Nirmala',
+        collection: 'Kondangan Emerald Sage',
+        status: 'Favorit',
+        discount: '20% OFF'
+      }
+    ],
+    'Kebaya Modern': [
+      {
+        ...kebayaCatalog[5],
+        collection: 'Modern Asymmetric Cut',
+        status: 'Populer 👑',
+        discount: '18% OFF'
+      },
+      {
+        ...kebayaCatalog[2],
+        name: 'Kebaya Nirmala',
+        collection: 'Modern Kutubaru Chic',
+        status: 'Favorit',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[1],
+        name: 'Kebaya Ayodhya',
+        collection: 'Modern Floral Brocade',
+        status: 'Baru',
+        discount: '15% OFF'
+      },
+      {
+        ...kebayaCatalog[6],
+        collection: 'Modern Sleek Silhouette',
+        status: 'Eksklusif',
+        discount: '20% OFF'
+      }
+    ],
+    'Kebaya Tradisional': [
+      {
+        ...kebayaCatalog[7],
+        collection: 'Tradisional Jawa Klasik',
+        status: 'Klasik 👑',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[0],
+        name: 'Kebaya Maheswari',
+        collection: 'Tradisional Keraton Ageng',
+        status: 'Eksklusif',
+        discount: '15% OFF'
+      },
+      {
+        ...kebayaCatalog[3],
+        name: 'Kebaya Kirana',
+        collection: 'Tradisional Encim Batik',
+        status: 'Favorit',
+        discount: '20% OFF'
+      },
+      {
+        ...kebayaCatalog[6],
+        name: 'Kebaya Cendrawasih',
+        collection: 'Tradisional Beludru Emas',
+        status: 'Pilihan',
+        discount: '20% OFF'
+      }
+    ]
+  };
+
+  let isFeaturedAnimating = false;
+  function renderFeaturedCards(filterCategory = 'Semua') {
     if (!featuredGrid) return;
-    const featuredItems = kebayaCatalog.slice(0, 4);
-    featuredGrid.innerHTML = featuredItems.map(createCardHTML).join('');
+    let items = featuredCategoryItems[filterCategory];
+    if (!items || items.length === 0) {
+      items = featuredCategoryItems['Semua'];
+    }
+
+    featuredGrid.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+    featuredGrid.style.opacity = '0.3';
+    featuredGrid.style.transform = 'translateY(4px)';
+
+    setTimeout(() => {
+      featuredGrid.innerHTML = items.map(createCardHTML).join('');
+      featuredGrid.style.opacity = '1';
+      featuredGrid.style.transform = 'translateY(0)';
+    }, 150);
+  }
+
+  // Category filter pills in Featured section
+  const featuredCatPills = Array.from(document.querySelectorAll('.featured-cat-pill'));
+  const featuredPillsContainer = document.getElementById('featuredCategoryPills');
+
+  function switchFeaturedTab(targetIndex) {
+    if (!featuredCatPills || featuredCatPills.length === 0) return;
+
+    let nextIndex = targetIndex;
+    if (nextIndex < 0) nextIndex = featuredCatPills.length - 1;
+    if (nextIndex >= featuredCatPills.length) nextIndex = 0;
+
+    featuredCatPills.forEach((p, idx) => {
+      if (idx === nextIndex) {
+        p.classList.add('active');
+        if (featuredPillsContainer) {
+          const containerRect = featuredPillsContainer.getBoundingClientRect();
+          const pillRect = p.getBoundingClientRect();
+          const scrollTarget = p.offsetLeft - (featuredPillsContainer.clientWidth / 2) + (p.clientWidth / 2);
+          featuredPillsContainer.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+        }
+      } else {
+        p.classList.remove('active');
+      }
+    });
+
+    const activePill = featuredCatPills[nextIndex];
+    const cat = activePill ? activePill.getAttribute('data-category') : 'Semua';
+    renderFeaturedCards(cat);
+  }
+
+  featuredCatPills.forEach((pill, idx) => {
+    pill.addEventListener('click', () => {
+      switchFeaturedTab(idx);
+    });
+  });
+
+  // Featured arrows: click prev/next to switch category tab
+  const featuredPrevBtn = document.getElementById('featuredPrevBtn');
+  const featuredNextBtn = document.getElementById('featuredNextBtn');
+
+  if (featuredPrevBtn) {
+    featuredPrevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const currentIndex = featuredCatPills.findIndex(p => p.classList.contains('active'));
+      const activeIdx = currentIndex >= 0 ? currentIndex : 0;
+      switchFeaturedTab(activeIdx - 1);
+    });
+  }
+
+  if (featuredNextBtn) {
+    featuredNextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const currentIndex = featuredCatPills.findIndex(p => p.classList.contains('active'));
+      const activeIdx = currentIndex >= 0 ? currentIndex : 0;
+      switchFeaturedTab(activeIdx + 1);
+    });
   }
 
   // =========================================================================
@@ -997,7 +1345,15 @@ Apakah model kebaya ini masih tersedia untuk tanggal tersebut? Saya ingin jadwal
   lookbookCards.forEach(card => {
     card.addEventListener('click', () => {
       const title = card.getAttribute('data-lookbook-title') || 'Inspirasi Kebaya';
-      openKebayaDetail(title === 'Akad' ? 'Kebaya Maheswari' : (title === 'Wisuda' ? 'Kebaya Nirmala' : 'Kebaya Ayodhya'));
+      if (title === 'Akad') {
+        openKebayaDetail('Kebaya Maheswari');
+      } else if (title === 'Wisuda') {
+        openKebayaDetail('Kebaya Nirmala');
+      } else if (title === 'Event') {
+        openKebayaDetail('Kebaya Kirana');
+      } else {
+        openKebayaDetail('Kebaya Ayodhya');
+      }
     });
   });
 
@@ -1007,23 +1363,37 @@ Apakah model kebaya ini masih tersedia untuk tanggal tersebut? Saya ingin jadwal
   const mobileNavToggle = document.getElementById('mobileNavToggle');
   const mobileNavDrawer = document.getElementById('mobileNavDrawer');
   const mobileNavClose = document.getElementById('mobileNavClose');
+  const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
 
-  if (mobileNavToggle && mobileNavDrawer) {
-    mobileNavToggle.addEventListener('click', () => {
-      mobileNavDrawer.classList.toggle('active');
+  window.openMobileDrawer = function() {
+    if (mobileNavDrawer) mobileNavDrawer.classList.add('active');
+    if (mobileDrawerOverlay) mobileDrawerOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeMobileDrawer = function() {
+    if (mobileNavDrawer) mobileNavDrawer.classList.remove('active');
+    if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  if (mobileNavToggle) {
+    mobileNavToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openMobileDrawer();
     });
   }
 
-  if (mobileNavClose && mobileNavDrawer) {
-    mobileNavClose.addEventListener('click', () => {
-      mobileNavDrawer.classList.remove('active');
-    });
+  if (mobileNavClose) {
+    mobileNavClose.addEventListener('click', closeMobileDrawer);
+  }
+
+  if (mobileDrawerOverlay) {
+    mobileDrawerOverlay.addEventListener('click', closeMobileDrawer);
   }
 
   document.querySelectorAll('.mobile-drawer-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileNavDrawer) mobileNavDrawer.classList.remove('active');
-    });
+    link.addEventListener('click', closeMobileDrawer);
   });
 
   // =========================================================================
