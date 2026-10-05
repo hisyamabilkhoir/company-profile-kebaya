@@ -139,14 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 5,
       name: "Kebaya Anindita",
       category: "Bridesmaid",
+      collection: "Bridesmaid Collection",
       status: "Baru",
       originalPrice: "Rp 340.000",
       discount: "20% OFF",
       price: "Rp 275.000",
       priceNum: 275000,
       image: "assets/images/card_anindita.png",
-      colors: ["#E8C5C8", "#5A1F30", "#8A9A86"],
-      colorNames: ["Dusty Pink", "Maroon", "Sage"],
+      colors: ["#E8C5C8", "#D8A4B8", "#8A9A86"],
+      colorNames: ["Blush", "Dusty Pink", "Sage"],
       sizes: ["XS", "S", "M", "L", "XL"],
       popularity: 88
     },
@@ -154,14 +155,15 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 6,
       name: "Kebaya Laksmi",
       category: "Kebaya Modern",
+      collection: "Kebaya Modern Collection",
       status: "Populer",
       originalPrice: "Rp 390.000",
       discount: "18% OFF",
       price: "Rp 320.000",
       priceNum: 320000,
       image: "assets/images/card_laksmi.png",
-      colors: ["#DFBF8E", "#D8A4B8", "#6B705C"],
-      colorNames: ["Cream", "Dusty Pink", "Sage"],
+      colors: ["#DFBF8E", "#D8A4B8", "#B56576"],
+      colorNames: ["Cream", "Dusty Pink", "Mauve"],
       sizes: ["S", "M", "L", "XL", "XXL"],
       popularity: 96
     },
@@ -169,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 7,
       name: "Kebaya Cendrawasih",
       category: "Kondangan",
+      collection: "Kondangan Collection",
       status: "Eksklusif",
       originalPrice: "Rp 375.000",
       discount: "20% OFF",
@@ -184,16 +187,89 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 8,
       name: "Kebaya Arunika",
       category: "Kebaya Tradisional",
+      collection: "Kebaya Tradisional Collection",
       status: "Klasik",
       originalPrice: "Rp 350.000",
       discount: "20% OFF",
       price: "Rp 280.000",
       priceNum: 280000,
       image: "assets/images/card_arunika.png",
-      colors: ["#FAF0E6", "#5A1F30", "#2B2D42"],
+      colors: ["#FAF0E6", "#5A1F30", "#1F1F1F"],
       colorNames: ["Putih", "Maroon", "Hitam"],
       sizes: ["S", "M", "L", "XL"],
       popularity: 90
+    },
+    {
+      id: 9,
+      name: "Kebaya Gayatri",
+      category: "Akad",
+      collection: "Akad Bridal Gold Collection",
+      status: "Eksklusif",
+      crown: true,
+      originalPrice: "Rp 450.000",
+      discount: "15% OFF",
+      price: "Rp 380.000",
+      priceNum: 380000,
+      image: "assets/images/lookbook_akad.png",
+      colors: ["#FFFFFF", "#F5EFE6", "#D4AF37", "#DFBF8E"],
+      colorNames: ["Putih", "Cream", "Gold", "Champagne"],
+      sizes: ["S", "M", "L", "XL"],
+      popularity: 97,
+      desc: "Kebaya akad eksklusif bertabur kristal swarovski gold dan mutiara air tawar dengan veil renda prancis mewah, memancarkan aura sakral nan anggun."
+    },
+    {
+      id: 10,
+      name: "Kebaya Renjana",
+      category: "Lamaran",
+      collection: "Lamaran Blush Peach Collection",
+      status: "Baru",
+      crown: false,
+      originalPrice: "Rp 350.000",
+      discount: "15% OFF",
+      price: "Rp 295.000",
+      priceNum: 295000,
+      image: "assets/images/lookbook_lamaran.png",
+      colors: ["#E8C5C8", "#D8A4B8", "#FAF0E6", "#DFBF8E"],
+      colorNames: ["Blush", "Dusty Pink", "Cream", "Champagne"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      popularity: 93,
+      desc: "Kebaya lamaran bernuansa blush peach dengan detail bordir bunga timbul dan payet mutiara yang manis, memberikan kesan feminin dan mempesona."
+    },
+    {
+      id: 11,
+      name: "Kebaya Danastri",
+      category: "Wisuda",
+      collection: "Wisuda Kutubaru Chic Collection",
+      status: "Populer",
+      crown: true,
+      originalPrice: "Rp 330.000",
+      discount: "20% OFF",
+      price: "Rp 265.000",
+      priceNum: 265000,
+      image: "assets/images/lookbook_wisuda.png",
+      colors: ["#8A9A86", "#6B705C", "#DFBF8E", "#D8A4B8"],
+      colorNames: ["Sage", "Olive", "Cream", "Dusty Pink"],
+      sizes: ["S", "M", "L", "XL"],
+      popularity: 95,
+      desc: "Kebaya wisuda kutubaru modern dengan warna sage green lembut dan bahan furing katun adem yang ringan dan nyaman untuk prosesi wisuda seharian."
+    },
+    {
+      id: 12,
+      name: "Kebaya Kalila",
+      category: "Kebaya Modern",
+      collection: "Modern Velvet Elegance Collection",
+      status: "Pilihan",
+      crown: false,
+      originalPrice: "Rp 380.000",
+      discount: "20% OFF",
+      price: "Rp 305.000",
+      priceNum: 305000,
+      image: "assets/images/lookbook_event.png",
+      colors: ["#5A1F30", "#1F1F1F", "#D4AF37", "#1D2D44"],
+      colorNames: ["Maroon", "Hitam", "Gold", "Navy"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      popularity: 94,
+      desc: "Kebaya modern siluet kontemporer dengan perpaduan lace kristal mewah dan aksen selendang menjuntai elegan, sangat pas untuk acara pesta maupun gala dinner."
     }
   ];
 
@@ -641,27 +717,24 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
 
   function createCardHTML(item) {
     const isWishlisted = wishlist.includes(item.name);
-    const swatchesHTML = item.colors.map((c, i) => 
-      `<span class="color-dot" style="background-color: ${c}" title="${item.colorNames[i] || ''}"></span>`
+    const swatchesHTML = (item.colors || []).slice(0, 4).map((c, i) => 
+      `<span class="color-dot" style="background-color: ${c}" title="${item.colorNames ? item.colorNames[i] || '' : ''}"></span>`
     ).join('');
 
-    let statusText = item.status ? item.status.toUpperCase() : '';
-    if (item.crown || item.status === 'Populer' || item.status === 'Favorit') {
-      statusText = `${item.status.toUpperCase()} 👑`;
-    }
+    const statusText = item.status ? item.status.toUpperCase() : 'BARU';
 
     return `
       <div class="kebaya-card" onclick="openKebayaDetail('${item.name}')">
         <div class="kebaya-card-media">
           <img src="${item.image}" alt="${item.name}" loading="lazy">
           <div class="kebaya-badges-top-left">
-            ${statusText ? `<span class="kebaya-status-badge">${statusText}</span>` : ''}
+            <span class="kebaya-status-badge">${statusText}</span>
             <span class="kebaya-discount-badge">${item.discount || '15% OFF'}</span>
           </div>
           <button class="kebaya-wishlist-btn ${isWishlisted ? 'active' : ''}" 
                   onclick="toggleWishlist('${item.name}', event)" 
                   title="Simpan ke Wishlist" aria-label="Simpan ke Wishlist">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#E63946" stroke="#E63946" stroke-width="1.2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#E63946" stroke="#E63946" stroke-width="1.2">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
           </button>
@@ -669,9 +742,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         <div class="kebaya-card-body">
           <h4 class="kebaya-card-title">${item.name}</h4>
           <div class="kebaya-card-category-row">
-            <svg class="kebaya-spark-icon" width="12" height="12" viewBox="0 0 24 24" fill="#C69A5A">
-              <path d="M12 2L14.4 8.6L21 11L14.4 13.4L12 20L9.6 13.4L3 11L9.6 8.6L12 2Z"/>
-            </svg>
+            <span class="kebaya-spark-symbol">+</span>
             <span class="kebaya-card-collection">${item.collection || item.category + ' Collection'}</span>
           </div>
           <div class="kebaya-card-swatches">
@@ -689,20 +760,12 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
               </div>
             </div>
             <button class="kebaya-card-cart-btn" onclick="openKebayaDetail('${item.name}'); event.stopPropagation();" title="Sewa ${item.name}" aria-label="Sewa ${item.name}">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <path d="M16 10a4 4 0 0 1-8 0"></path>
               </svg>
             </button>
-          </div>
-          <!-- Decorative floral watermark in bottom right -->
-          <div class="kebaya-card-watermark" aria-hidden="true">
-            <svg width="44" height="44" viewBox="0 0 100 100" fill="none" stroke="rgba(198, 154, 90, 0.35)" stroke-width="1.8">
-              <path d="M50 15 C45 35, 15 45, 15 50 C35 55, 45 85, 50 85 C55 85, 65 55, 85 50 C65 45, 55 35, 50 15 Z"/>
-              <circle cx="50" cy="50" r="10" stroke="rgba(198, 154, 90, 0.28)" stroke-width="1.5"/>
-              <path d="M50 28 C40 40, 28 50, 50 72 C72 50, 60 40, 50 28 Z"/>
-            </svg>
           </div>
         </div>
       </div>
@@ -724,15 +787,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         status: 'Baru',
         discount: '15% OFF'
       },
-      {
-        ...kebayaCatalog[7],
-        name: 'Kebaya Gayatri',
-        collection: 'Akad Bridal Gold',
-        status: 'Populer 👑',
-        discount: '15% OFF',
-        price: 'Rp 380.000',
-        originalPrice: 'Rp 450.000'
-      },
+      kebayaCatalog[8], // Kebaya Gayatri
       {
         ...kebayaCatalog[1],
         name: 'Kebaya Puspa Kencana',
@@ -759,15 +814,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         status: 'Populer 👑',
         discount: '15% OFF'
       },
-      {
-        ...kebayaCatalog[4],
-        name: 'Kebaya Renjana',
-        collection: 'Lamaran Blush Peach',
-        status: 'Baru',
-        discount: '15% OFF',
-        price: 'Rp 295.000',
-        originalPrice: 'Rp 350.000'
-      },
+      kebayaCatalog[9], // Kebaya Renjana
       {
         ...kebayaCatalog[5],
         name: 'Kebaya Danastri',
@@ -794,6 +841,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         status: 'Favorit 👑',
         discount: '20% OFF'
       },
+      kebayaCatalog[10], // Kebaya Danastri
       {
         ...kebayaCatalog[5],
         name: 'Kebaya Laksmi',
@@ -807,13 +855,6 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         collection: 'Wisuda Modern Lilac',
         status: 'Baru',
         discount: '20% OFF'
-      },
-      {
-        ...kebayaCatalog[1],
-        name: 'Kebaya Candramaya',
-        collection: 'Wisuda Soft Pastel',
-        status: 'Pilihan',
-        discount: '15% OFF'
       }
     ],
     'Bridesmaid': [
@@ -880,6 +921,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         status: 'Populer 👑',
         discount: '18% OFF'
       },
+      kebayaCatalog[11], // Kebaya Kalila
       {
         ...kebayaCatalog[2],
         name: 'Kebaya Nirmala',
@@ -893,12 +935,6 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         collection: 'Modern Floral Brocade',
         status: 'Baru',
         discount: '15% OFF'
-      },
-      {
-        ...kebayaCatalog[6],
-        collection: 'Modern Sleek Silhouette',
-        status: 'Eksklusif',
-        discount: '20% OFF'
       }
     ],
     'Kebaya Tradisional': [
@@ -1012,13 +1048,80 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
   // =========================================================================
   // 6. CATALOG FILTERS & SORTING (Sidebar & Range slider)
   // =========================================================================
+  // 6. CATALOG FILTERS, PAGINATION & SORTING
+  // =========================================================================
+  const paginationContainer = document.getElementById('catalogPagination');
+  const perPageSelect = document.getElementById('catalogPerPageSelect');
+
   let activeFilters = {
     category: 'Semua',
     color: 'Semua',
     size: 'Semua',
     maxPrice: 1000000,
     search: '',
-    sortBy: 'terbaru'
+    sortBy: 'terbaru',
+    perPage: 5,
+    currentPage: 1
+  };
+
+  function renderPaginationControls(totalPages, currentPage) {
+    if (!paginationContainer) return;
+
+    if (totalPages <= 1) {
+      paginationContainer.innerHTML = '';
+      paginationContainer.style.display = 'none';
+      return;
+    }
+
+    paginationContainer.style.display = 'flex';
+
+    let html = '';
+
+    // Prev Button
+    const isPrevDisabled = currentPage <= 1;
+    html += `
+      <button type="button" class="pagination-btn ${isPrevDisabled ? 'disabled' : ''}" 
+              ${isPrevDisabled ? 'disabled' : ''} 
+              onclick="goToPage(${currentPage - 1})" 
+              aria-label="Halaman Sebelumnya" title="Sebelumnya">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+    `;
+
+    // Page Number Buttons
+    for (let i = 1; i <= totalPages; i++) {
+      html += `
+        <button type="button" class="pagination-btn ${i === currentPage ? 'active' : ''}" 
+                onclick="goToPage(${i})" 
+                aria-label="Halaman ${i}" title="Halaman ${i}">
+          ${i}
+        </button>
+      `;
+    }
+
+    // Next Button
+    const isNextDisabled = currentPage >= totalPages;
+    html += `
+      <button type="button" class="pagination-btn ${isNextDisabled ? 'disabled' : ''}" 
+              ${isNextDisabled ? 'disabled' : ''} 
+              onclick="goToPage(${currentPage + 1})" 
+              aria-label="Halaman Berikutnya" title="Berikutnya">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    `;
+
+    paginationContainer.innerHTML = html;
+  }
+
+  window.goToPage = function(pageNumber) {
+    activeFilters.currentPage = pageNumber;
+    applyCatalogFilters();
+
+    const catalogSection = document.getElementById('koleksi');
+    if (catalogSection) {
+      const topOffset = catalogSection.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
+    }
   };
 
   function applyCatalogFilters() {
@@ -1034,7 +1137,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
 
       // Color filter
       if (activeFilters.color !== 'Semua') {
-        const matchesColor = item.colorNames.some(cn => 
+        const matchesColor = (item.colorNames || []).some(cn => 
           cn.toLowerCase().includes(activeFilters.color.toLowerCase())
         );
         if (!matchesColor) return false;
@@ -1042,7 +1145,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
 
       // Size filter
       if (activeFilters.size !== 'Semua') {
-        if (!item.sizes.includes(activeFilters.size)) return false;
+        if (!(item.sizes || []).includes(activeFilters.size)) return false;
       }
 
       // Price filter
@@ -1070,11 +1173,34 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
       filtered.sort((a, b) => b.popularity - a.popularity);
     }
 
-    if (catalogResultsCount) {
-      catalogResultsCount.textContent = `${filtered.length} Koleksi Ditemukan`;
+    // Pagination Calculation
+    const totalItems = filtered.length;
+    const perPageVal = activeFilters.perPage === 'all' ? totalItems : parseInt(activeFilters.perPage, 10);
+    const perPage = (isNaN(perPageVal) || perPageVal <= 0) ? (totalItems || 1) : perPageVal;
+    const totalPages = Math.max(1, Math.ceil(totalItems / perPage));
+
+    if (activeFilters.currentPage > totalPages) {
+      activeFilters.currentPage = totalPages;
+    }
+    if (activeFilters.currentPage < 1) {
+      activeFilters.currentPage = 1;
     }
 
-    if (filtered.length === 0) {
+    const startIndex = (activeFilters.currentPage - 1) * perPage;
+    const endIndex = Math.min(startIndex + perPage, totalItems);
+    const paginatedItems = (activeFilters.perPage === 'all') ? filtered : filtered.slice(startIndex, endIndex);
+
+    if (catalogResultsCount) {
+      if (totalItems === 0) {
+        catalogResultsCount.textContent = '0 Koleksi Ditemukan';
+      } else if (activeFilters.perPage === 'all' || totalItems <= perPage) {
+        catalogResultsCount.textContent = `Menampilkan ${totalItems} dari ${totalItems} Koleksi`;
+      } else {
+        catalogResultsCount.textContent = `Menampilkan ${startIndex + 1}–${endIndex} dari ${totalItems} Koleksi`;
+      }
+    }
+
+    if (totalItems === 0) {
       catalogGrid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #fff; border-radius: 20px;">
           <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 12px;">Tidak ada kebaya yang sesuai dengan filter yang dipilih.</p>
@@ -1082,12 +1208,23 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         </div>
       `;
     } else {
-      catalogGrid.innerHTML = filtered.map(createCardHTML).join('');
+      catalogGrid.innerHTML = paginatedItems.map(createCardHTML).join('');
     }
+
+    renderPaginationControls(totalPages, activeFilters.currentPage);
   }
 
   function renderCatalogCards() {
     applyCatalogFilters();
+  }
+
+  // Per Page Select Event
+  if (perPageSelect) {
+    perPageSelect.addEventListener('change', (e) => {
+      activeFilters.perPage = e.target.value;
+      activeFilters.currentPage = 1;
+      applyCatalogFilters();
+    });
   }
 
   // Category Checkboxes Event
@@ -1102,6 +1239,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
       } else {
         activeFilters.category = 'Semua';
       }
+      activeFilters.currentPage = 1;
       applyCatalogFilters();
     });
   });
@@ -1113,6 +1251,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
       colorFilterRows.forEach(r => r.classList.remove('active'));
       row.classList.add('active');
       activeFilters.color = row.getAttribute('data-color');
+      activeFilters.currentPage = 1;
       applyCatalogFilters();
     });
   });
@@ -1129,6 +1268,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
         pill.classList.add('active');
         activeFilters.size = pill.getAttribute('data-size');
       }
+      activeFilters.currentPage = 1;
       applyCatalogFilters();
     });
   });
@@ -1143,6 +1283,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
       if (priceMaxLabel) {
         priceMaxLabel.textContent = `Rp ${val.toLocaleString('id-ID')}`;
       }
+      activeFilters.currentPage = 1;
       applyCatalogFilters();
     });
   }
@@ -1152,6 +1293,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
   if (sortSelect) {
     sortSelect.addEventListener('change', (e) => {
       activeFilters.sortBy = e.target.value;
+      activeFilters.currentPage = 1;
       applyCatalogFilters();
     });
   }
@@ -1161,6 +1303,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
   if (catalogSearchInput) {
     catalogSearchInput.addEventListener('input', (e) => {
       activeFilters.search = e.target.value;
+      activeFilters.currentPage = 1;
       applyCatalogFilters();
     });
   }
@@ -1173,8 +1316,12 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
       size: 'Semua',
       maxPrice: 1000000,
       search: '',
-      sortBy: 'terbaru'
+      sortBy: 'terbaru',
+      perPage: 5,
+      currentPage: 1
     };
+
+    if (perPageSelect) perPageSelect.value = '5';
 
     catCheckboxes.forEach(cb => {
       cb.checked = (cb.value === 'Semua');
@@ -1346,13 +1493,13 @@ Apakah model kebaya ini masih tersedia untuk tanggal tersebut? Saya ingin jadwal
     card.addEventListener('click', () => {
       const title = card.getAttribute('data-lookbook-title') || 'Inspirasi Kebaya';
       if (title === 'Akad') {
-        openKebayaDetail('Kebaya Maheswari');
+        openKebayaDetail('Kebaya Gayatri');
       } else if (title === 'Wisuda') {
-        openKebayaDetail('Kebaya Nirmala');
+        openKebayaDetail('Kebaya Danastri');
       } else if (title === 'Event') {
-        openKebayaDetail('Kebaya Kirana');
+        openKebayaDetail('Kebaya Kalila');
       } else {
-        openKebayaDetail('Kebaya Ayodhya');
+        openKebayaDetail('Kebaya Renjana');
       }
     });
   });
@@ -2184,6 +2331,155 @@ Apakah model kebaya ini masih tersedia untuk tanggal tersebut? Saya ingin jadwal
       if (mobileNavDrawer) mobileNavDrawer.classList.remove('active');
     }
   });
+
+  // =========================================================================
+  // TESTIMONIALS SLIDER & PROGRESS BAR (MOCKUP INTERACTION)
+  // =========================================================================
+  function initTestimonialsSlider() {
+    const track = document.getElementById('testimonialsSliderTrack');
+    const prevBtn = document.getElementById('testiPrevBtn');
+    const nextBtn = document.getElementById('testiNextBtn');
+    const progressFill = document.getElementById('testiProgressFill');
+    const progressTrack = document.getElementById('testiProgressTrack');
+    const dots = document.querySelectorAll('.testi-dot');
+    
+    if (!track) return;
+    const cards = track.querySelectorAll('.testi-card-mockup');
+    if (!cards.length) return;
+
+    function getCardStep() {
+      if (cards.length > 1) {
+        return cards[1].offsetLeft - cards[0].offsetLeft;
+      }
+      return cards[0].offsetWidth + 22;
+    }
+
+    function updateProgress() {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      const scrollLeft = track.scrollLeft;
+      const progress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollLeft / maxScroll)) : 0;
+      
+      if (progressFill) {
+        const minPct = 100 / cards.length;
+        const currentPct = minPct + progress * (100 - minPct);
+        progressFill.style.width = currentPct + '%';
+      }
+
+      // Calculate active card index based on center of view
+      const viewCenter = scrollLeft + (track.clientWidth / 2);
+      let activeIndex = 0;
+      let minDistance = Infinity;
+
+      cards.forEach((card, idx) => {
+        const cardCenter = card.offsetLeft - track.offsetLeft + (card.offsetWidth / 2);
+        const distance = Math.abs(cardCenter - viewCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeIndex = idx;
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === activeIndex);
+      });
+    }
+
+    function scrollToIndex(idx) {
+      if (idx >= 0 && idx < cards.length) {
+        const targetLeft = cards[idx].offsetLeft - track.offsetLeft;
+        track.scrollTo({ left: targetLeft, behavior: 'smooth' });
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.onclick = (e) => {
+        e.preventDefault();
+        const step = getCardStep();
+        track.scrollBy({ left: -step, behavior: 'smooth' });
+      };
+    }
+
+    if (nextBtn) {
+      nextBtn.onclick = (e) => {
+        e.preventDefault();
+        const step = getCardStep();
+        track.scrollBy({ left: step, behavior: 'smooth' });
+      };
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
+        scrollToIndex(idx);
+      });
+    });
+
+    if (progressTrack) {
+      progressTrack.addEventListener('click', (e) => {
+        const rect = progressTrack.getBoundingClientRect();
+        const clickRatio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+        const targetIndex = Math.min(cards.length - 1, Math.round(clickRatio * (cards.length - 1)));
+        scrollToIndex(targetIndex);
+      });
+    }
+
+    // Scroll listener with requestAnimationFrame
+    let ticking = false;
+    track.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateProgress();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Desktop Mouse Drag to Slide
+    let isDown = false;
+    let startX = 0;
+    let startScroll = 0;
+    let hasMoved = false;
+
+    track.addEventListener('mousedown', (e) => {
+      isDown = true;
+      hasMoved = false;
+      track.classList.add('is-dragging');
+      startX = e.pageX - track.offsetLeft;
+      startScroll = track.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDown) {
+        isDown = false;
+        track.classList.remove('is-dragging');
+      }
+    });
+
+    track.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      if (Math.abs(walk) > 4) hasMoved = true;
+      track.scrollLeft = startScroll - walk;
+    });
+
+    // Prevent clicking on action buttons if dragged
+    track.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (hasMoved) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+    });
+
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+  }
+
+  initTestimonialsSlider();
 
   console.log("Svasti Kebaya Rental initialized successfully with luxury 3D aesthetics, Back to Top, and AI Chatbot!");
 });
