@@ -130,6 +130,18 @@ ul {
   padding: 0 24px;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 14px;
+  }
+}
+
 .section-wrapper {
   padding: 90px 0;
   position: relative;
@@ -3666,6 +3678,13 @@ ul {
   align-items: flex-start;
   position: relative;
   z-index: 2;
+  min-width: 0;
+  width: 100%;
+}
+
+.catalog-main-content {
+  min-width: 0;
+  width: 100%;
 }
 
 /* Sidebar Filter */
@@ -3677,6 +3696,7 @@ ul {
   border: 1.5px solid #EFE4D6;
   position: sticky;
   top: 90px;
+  min-width: 0;
 }
 
 .filter-header {
@@ -3686,6 +3706,24 @@ ul {
   padding-bottom: 16px;
   border-bottom: 1px solid #F0E6D8;
   margin-bottom: 18px;
+  gap: 10px;
+}
+
+.filter-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-header-icon {
+  color: #C59D5F;
+  flex-shrink: 0;
 }
 
 .filter-header-title {
@@ -3694,6 +3732,19 @@ ul {
   font-weight: 700;
   color: #2E0F17;
   margin: 0;
+}
+
+.filter-mobile-active-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--primary-maroon);
+  color: #fff;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+}
+
+.filter-toggle-mobile-btn {
+  display: none;
 }
 
 .filter-reset-btn {
@@ -3900,6 +3951,12 @@ input[type="checkbox"]:checked + .custom-checkbox {
   gap: 14px;
 }
 
+.catalog-header-top-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .catalog-results-count {
   font-family: var(--font-sans);
   font-size: 1.05rem;
@@ -3911,6 +3968,7 @@ input[type="checkbox"]:checked + .custom-checkbox {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex-wrap: wrap;
 }
 
 .catalog-sort-group {
@@ -3923,10 +3981,11 @@ input[type="checkbox"]:checked + .custom-checkbox {
   font-size: 0.85rem;
   font-weight: 500;
   color: #6E6163;
+  white-space: nowrap;
 }
 
 .catalog-sort-select {
-  padding: 7px 18px 7px 14px;
+  padding: 7px 20px 7px 12px;
   border-radius: 999px;
   border: 1.5px solid #E2D7CC;
   background: #FFFDF9;
@@ -3937,6 +3996,7 @@ input[type="checkbox"]:checked + .custom-checkbox {
   outline: none;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  max-width: 100%;
 }
 
 .catalog-view-toggle {
@@ -3971,6 +4031,30 @@ input[type="checkbox"]:checked + .custom-checkbox {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
+}
+
+/* List View Variant */
+.catalog-products-grid.list-view {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.catalog-products-grid.list-view .kebaya-card {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.catalog-products-grid.list-view .kebaya-card-media {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  height: auto;
+  aspect-ratio: auto;
+}
+
+.catalog-products-grid.list-view .kebaya-card-body {
+  padding: 16px 18px;
+  flex: 1;
 }
 
 /* Pagination Row */
@@ -4029,17 +4113,112 @@ input[type="checkbox"]:checked + .custom-checkbox {
 @media (max-width: 992px) {
   .catalog-layout {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 20px;
+    min-width: 0;
   }
   .filter-sidebar {
     position: static;
     max-width: 100%;
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 18px;
+    box-sizing: border-box;
+  }
+  .filter-header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    cursor: pointer;
+  }
+  .filter-sidebar.is-open .filter-header {
+    padding-bottom: 14px;
+    border-bottom: 1px solid #F0E6D8;
+    margin-bottom: 16px;
+  }
+  .filter-toggle-mobile-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary-maroon);
+    background: #F8F1E8;
+    border: 1px solid #EADBCC;
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter-toggle-mobile-btn:hover {
+    background: #F2E4D6;
+    border-color: #DCC0A4;
+  }
+  .filter-toggle-mobile-arrow {
+    transition: transform 0.3s ease;
+  }
+  .filter-sidebar.is-open .filter-toggle-mobile-arrow {
+    transform: rotate(180deg);
+  }
+  .filter-body-content {
+    display: none;
+    padding-top: 4px;
+  }
+  .filter-sidebar.is-open .filter-body-content {
+    display: block;
+    animation: fadeInFilter 0.25s ease;
   }
   .catalog-products-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
   .catalog-watermark-emblem {
     display: none;
+  }
+}
+
+@keyframes fadeInFilter {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .catalog-content-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .catalog-header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .catalog-results-count {
+    font-size: 0.95rem;
+  }
+  .catalog-header-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .catalog-sort-group {
+    width: 100%;
+    min-width: 0;
+    gap: 6px;
+  }
+  .catalog-sort-label {
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .catalog-sort-select {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.8rem;
+    padding: 6px 14px 6px 8px;
+    text-overflow: ellipsis;
   }
 }
 
@@ -4051,7 +4230,20 @@ input[type="checkbox"]:checked + .custom-checkbox {
     font-size: 2.5rem;
   }
   .catalog-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .catalog-products-grid.list-view {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .catalog-products-grid.list-view .kebaya-card-media {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+  }
+  .catalog-products-grid.list-view .kebaya-card-body {
+    padding: 12px 10px;
   }
 }
 
@@ -5839,7 +6031,13 @@ input[type="checkbox"]:checked + .custom-checkbox {
   }
 
   .catalog-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .catalog-products-grid.list-view {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .featured-kebaya-grid .kebaya-card {
@@ -5902,15 +6100,15 @@ input[type="checkbox"]:checked + .custom-checkbox {
   }
 
   .testi-card-mockup {
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 105px 1fr;
     gap: 12px;
     padding: 12px;
-    border-radius: 20px;
+    border-radius: 18px;
   }
 
   .testi-card-photo-wrapper {
-    min-height: 210px;
-    border-radius: 14px;
+    min-height: 190px;
+    border-radius: 12px;
   }
 
   .testi-quote-text {
@@ -5920,17 +6118,54 @@ input[type="checkbox"]:checked + .custom-checkbox {
   }
 
   .testi-btn-all {
-    padding: 9px 18px;
-    font-size: 0.8rem;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+
+  .testimonials-slider-track {
+    gap: 12px;
+    padding: 8px 0 18px;
   }
 
   .testimonials-slider-track .testi-card-mockup {
-    flex: 0 0 calc(100% - 16px);
-    min-width: 270px;
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+    scroll-snap-align: center;
+    box-sizing: border-box;
   }
 
   .testi-progress-bar-track {
     width: 140px;
+  }
+
+  .floating-actions-dock {
+    bottom: 16px;
+    right: 14px;
+    gap: 8px;
+  }
+
+  .floating-action-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .floating-action-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .chatbot-badge-unread {
+    width: 17px;
+    height: 17px;
+    font-size: 0.62rem;
+    top: -2px;
+    right: -2px;
+  }
+
+  .chatbot-pulse-dot {
+    width: 10px;
+    height: 10px;
   }
 }
 

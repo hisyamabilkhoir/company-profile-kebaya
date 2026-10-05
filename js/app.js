@@ -1060,7 +1060,7 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
     maxPrice: 1000000,
     search: '',
     sortBy: 'terbaru',
-    perPage: 5,
+    perPage: 8,
     currentPage: 1
   };
 
@@ -1212,10 +1212,77 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
     }
 
     renderPaginationControls(totalPages, activeFilters.currentPage);
+    updateFilterBadge();
   }
 
   function renderCatalogCards() {
     applyCatalogFilters();
+  }
+
+  // Mobile Filter Active Badge Counter
+  const filterActiveBadge = document.getElementById('filterActiveBadge');
+  function updateFilterBadge() {
+    if (!filterActiveBadge) return;
+    let count = 0;
+    if (activeFilters.category !== 'Semua') count++;
+    if (activeFilters.color !== 'Semua') count++;
+    if (activeFilters.size !== 'Semua') count++;
+    if (activeFilters.search) count++;
+    if (activeFilters.maxPrice < 1000000) count++;
+
+    if (count > 0) {
+      filterActiveBadge.textContent = count;
+      filterActiveBadge.style.display = 'inline-block';
+    } else {
+      filterActiveBadge.style.display = 'none';
+    }
+  }
+
+  // Mobile Filter Toggle Button & Header Logic
+  const filterSidebar = document.getElementById('filterSidebar');
+  const filterToggleMobileBtn = document.getElementById('filterToggleMobileBtn');
+  const filterToggleMobileText = document.getElementById('filterToggleMobileText');
+  const filterHeader = document.getElementById('filterHeader');
+
+  function toggleMobileFilter() {
+    if (!filterSidebar) return;
+    const isOpen = filterSidebar.classList.toggle('is-open');
+    if (filterToggleMobileText) {
+      filterToggleMobileText.textContent = isOpen ? 'Tutup Filter' : 'Buka Filter';
+    }
+  }
+
+  if (filterToggleMobileBtn) {
+    filterToggleMobileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileFilter();
+    });
+  }
+
+  if (filterHeader) {
+    filterHeader.addEventListener('click', (e) => {
+      if (window.innerWidth <= 992 && !e.target.closest('#filterResetBtn')) {
+        toggleMobileFilter();
+      }
+    });
+  }
+
+  // Grid & List View Toggle Buttons
+  const catalogViewGridBtn = document.getElementById('catalogViewGridBtn');
+  const catalogViewListBtn = document.getElementById('catalogViewListBtn');
+
+  if (catalogViewGridBtn && catalogViewListBtn && catalogGrid) {
+    catalogViewGridBtn.addEventListener('click', () => {
+      catalogViewGridBtn.classList.add('active');
+      catalogViewListBtn.classList.remove('active');
+      catalogGrid.classList.remove('list-view');
+    });
+
+    catalogViewListBtn.addEventListener('click', () => {
+      catalogViewListBtn.classList.add('active');
+      catalogViewGridBtn.classList.remove('active');
+      catalogGrid.classList.add('list-view');
+    });
   }
 
   // Per Page Select Event
@@ -1317,11 +1384,11 @@ Apakah kebaya-kebaya tersebut masih tersedia untuk tanggal acara saya? Saya ingi
       maxPrice: 1000000,
       search: '',
       sortBy: 'terbaru',
-      perPage: 5,
+      perPage: 8,
       currentPage: 1
     };
 
-    if (perPageSelect) perPageSelect.value = '5';
+    if (perPageSelect) perPageSelect.value = '8';
 
     catCheckboxes.forEach(cb => {
       cb.checked = (cb.value === 'Semua');

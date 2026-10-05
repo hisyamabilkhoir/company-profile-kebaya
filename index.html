@@ -1462,156 +1462,173 @@
       <div class="catalog-layout">
 
         <!-- Sidebar Filter -->
-        <aside class="filter-sidebar">
-          <div class="filter-header">
-            <h3 class="filter-header-title">Filter Koleksi</h3>
-            <button type="button" class="filter-reset-btn" id="filterResetBtn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <path d="M23 4v6h-6"></path>
-                <path d="M1 20v-6h6"></path>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        <aside class="filter-sidebar" id="filterSidebar">
+          <div class="filter-header" id="filterHeader">
+            <div class="filter-header-left">
+              <svg class="filter-header-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
               </svg>
-              Reset
-            </button>
-          </div>
-
-          <!-- Search in catalog -->
-          <div class="filter-group">
-            <label for="catalogSearchInput" class="filter-group-title">Cari Model</label>
-            <div class="filter-search-input-box">
-              <svg class="filter-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E9193" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <input type="text" id="catalogSearchInput" class="filter-search-input" placeholder="Ketik nama kebaya...">
+              <h3 class="filter-header-title">Filter Koleksi</h3>
+              <span class="filter-mobile-active-badge" id="filterActiveBadge" style="display: none;">0</span>
+            </div>
+            <div class="filter-header-right">
+              <button type="button" class="filter-reset-btn" id="filterResetBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M23 4v6h-6"></path>
+                  <path d="M1 20v-6h6"></path>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                Reset
+              </button>
+              <button type="button" class="filter-toggle-mobile-btn" id="filterToggleMobileBtn" aria-label="Buka atau tutup filter">
+                <span id="filterToggleMobileText">Buka Filter</span>
+                <svg class="filter-toggle-mobile-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
             </div>
           </div>
 
-          <!-- Kategori -->
-          <div class="filter-group">
-            <div class="filter-group-title">
-              Kategori
+          <!-- Collapsible Body Content -->
+          <div class="filter-body-content" id="filterBodyContent">
+            <!-- Search in catalog -->
+            <div class="filter-group">
+              <label for="catalogSearchInput" class="filter-group-title">Cari Model</label>
+              <div class="filter-search-input-box">
+                <svg class="filter-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E9193" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="catalogSearchInput" class="filter-search-input" placeholder="Ketik nama kebaya...">
+              </div>
             </div>
-            <div class="filter-checkbox-list">
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Semua" checked style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Semua
-                </span>
-                <span class="filter-count">(48)</span>
-              </label>
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Akad" style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Akad
-                </span>
-                <span class="filter-count">(8)</span>
-              </label>
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Lamaran" style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Lamaran
-                </span>
-                <span class="filter-count">(10)</span>
-              </label>
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Wisuda" style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Wisuda
-                </span>
-                <span class="filter-count">(6)</span>
-              </label>
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Bridesmaid" style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Bridesmaid
-                </span>
-                <span class="filter-count">(8)</span>
-              </label>
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Kondangan" style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Kondangan
-                </span>
-                <span class="filter-count">(10)</span>
-              </label>
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Kebaya Modern" style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Kebaya Modern
-                </span>
-                <span class="filter-count">(12)</span>
-              </label>
-              <label class="filter-checkbox-label">
-                <span class="checkbox-left">
-                  <input type="checkbox" class="cat-checkbox" value="Kebaya Tradisional" style="display:none;">
-                  <span class="custom-checkbox">✓</span>
-                  Kebaya Tradisional
-                </span>
-                <span class="filter-count">(6)</span>
-              </label>
-            </div>
-          </div>
 
-          <!-- Warna -->
-          <div class="filter-group">
-            <div class="filter-group-title">
-              Warna
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            <!-- Kategori -->
+            <div class="filter-group">
+              <div class="filter-group-title">
+                Kategori
+              </div>
+              <div class="filter-checkbox-list">
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Semua" checked style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Semua
+                  </span>
+                  <span class="filter-count">(48)</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Akad" style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Akad
+                  </span>
+                  <span class="filter-count">(8)</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Lamaran" style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Lamaran
+                  </span>
+                  <span class="filter-count">(10)</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Wisuda" style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Wisuda
+                  </span>
+                  <span class="filter-count">(6)</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Bridesmaid" style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Bridesmaid
+                  </span>
+                  <span class="filter-count">(8)</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Kondangan" style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Kondangan
+                  </span>
+                  <span class="filter-count">(10)</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Kebaya Modern" style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Kebaya Modern
+                  </span>
+                  <span class="filter-count">(12)</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <span class="checkbox-left">
+                    <input type="checkbox" class="cat-checkbox" value="Kebaya Tradisional" style="display:none;">
+                    <span class="custom-checkbox">✓</span>
+                    Kebaya Tradisional
+                  </span>
+                  <span class="filter-count">(6)</span>
+                </label>
+              </div>
             </div>
-            <div class="filter-color-list">
-              <div class="color-filter-row active" data-color="Semua">
-                <span class="color-dot" style="background:#5A1F30;"></span>
-                <span>Semua Warna</span>
-              </div>
-              <div class="color-filter-row" data-color="Putih">
-                <span class="color-dot" style="background:#FFFFFF; border:1px solid #ddd;"></span>
-                <span>Putih</span>
-              </div>
-              <div class="color-filter-row" data-color="Cream">
-                <span class="color-dot" style="background:#F5EFE6;"></span>
-                <span>Cream</span>
-              </div>
-              <div class="color-filter-row" data-color="Dusty Pink">
-                <span class="color-dot" style="background:#D8A4B8;"></span>
-                <span>Dusty Pink</span>
-              </div>
-              <div class="color-filter-row" data-color="Maroon">
-                <span class="color-dot" style="background:#5A1F30;"></span>
-                <span>Maroon</span>
-              </div>
-              <div class="color-filter-row" data-color="Sage">
-                <span class="color-dot" style="background:#8A9A86;"></span>
-                <span>Sage</span>
-              </div>
-              <div class="color-filter-row" data-color="Navy">
-                <span class="color-dot" style="background:#1D2D44;"></span>
-                <span>Navy</span>
-              </div>
-              <div class="color-filter-row" data-color="Hitam">
-                <span class="color-dot" style="background:#1F1F1F;"></span>
-                <span>Hitam</span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Ukuran Tersedia -->
-          <div class="filter-group">
-            <div class="filter-group-title">Ukuran Tersedia</div>
-            <div class="filter-size-grid">
-              <div class="size-pill-btn" data-size="XS">XS</div>
-              <div class="size-pill-btn" data-size="S">S</div>
-              <div class="size-pill-btn" data-size="M">M</div>
-              <div class="size-pill-btn" data-size="L">L</div>
-              <div class="size-pill-btn" data-size="XL">XL</div>
-              <div class="size-pill-btn" data-size="XXL">XXL</div>
+            <!-- Warna -->
+            <div class="filter-group">
+              <div class="filter-group-title">
+                Warna
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              </div>
+              <div class="filter-color-list">
+                <div class="color-filter-row active" data-color="Semua">
+                  <span class="color-dot" style="background:#5A1F30;"></span>
+                  <span>Semua Warna</span>
+                </div>
+                <div class="color-filter-row" data-color="Putih">
+                  <span class="color-dot" style="background:#FFFFFF; border:1px solid #ddd;"></span>
+                  <span>Putih</span>
+                </div>
+                <div class="color-filter-row" data-color="Cream">
+                  <span class="color-dot" style="background:#F5EFE6;"></span>
+                  <span>Cream</span>
+                </div>
+                <div class="color-filter-row" data-color="Dusty Pink">
+                  <span class="color-dot" style="background:#D8A4B8;"></span>
+                  <span>Dusty Pink</span>
+                </div>
+                <div class="color-filter-row" data-color="Maroon">
+                  <span class="color-dot" style="background:#5A1F30;"></span>
+                  <span>Maroon</span>
+                </div>
+                <div class="color-filter-row" data-color="Sage">
+                  <span class="color-dot" style="background:#8A9A86;"></span>
+                  <span>Sage</span>
+                </div>
+                <div class="color-filter-row" data-color="Navy">
+                  <span class="color-dot" style="background:#1D2D44;"></span>
+                  <span>Navy</span>
+                </div>
+                <div class="color-filter-row" data-color="Hitam">
+                  <span class="color-dot" style="background:#1F1F1F;"></span>
+                  <span>Hitam</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ukuran Tersedia -->
+            <div class="filter-group">
+              <div class="filter-group-title">Ukuran Tersedia</div>
+              <div class="filter-size-grid">
+                <div class="size-pill-btn" data-size="XS">XS</div>
+                <div class="size-pill-btn" data-size="S">S</div>
+                <div class="size-pill-btn" data-size="M">M</div>
+                <div class="size-pill-btn" data-size="L">L</div>
+                <div class="size-pill-btn" data-size="XL">XL</div>
+                <div class="size-pill-btn" data-size="XXL">XXL</div>
+              </div>
             </div>
           </div>
         </aside>
@@ -1619,14 +1636,37 @@
         <!-- Right Products Grid Container -->
         <main class="catalog-main-content">
           <div class="catalog-content-header">
-            <div class="catalog-results-count" id="catalogResultsCount">Menampilkan 1–5 dari 12 Koleksi</div>
+            <div class="catalog-header-top-row">
+              <div class="catalog-results-count" id="catalogResultsCount">Menampilkan 1–8 dari 12 Koleksi</div>
+              <div class="catalog-view-toggle">
+                <button type="button" class="catalog-view-btn active" id="catalogViewGridBtn" title="Tampilan Grid" aria-label="Tampilan Grid">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                  </svg>
+                </button>
+                <button type="button" class="catalog-view-btn" id="catalogViewListBtn" title="Tampilan List" aria-label="Tampilan List">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
             <div class="catalog-header-actions">
               <!-- Per Page Selector (5, 8, 10, 12, Semua) -->
               <div class="catalog-sort-group">
                 <span class="catalog-sort-label">Tampilkan:</span>
                 <select class="catalog-sort-select" id="catalogPerPageSelect" aria-label="Jumlah Tampilan Produk">
-                  <option value="5" selected>5 per hal</option>
-                  <option value="8">8 per hal</option>
+                  <option value="5">5 per hal</option>
+                  <option value="8" selected>8 per hal</option>
                   <option value="10">10 per hal</option>
                   <option value="12">12 per hal</option>
                   <option value="all">Semua</option>
@@ -1642,26 +1682,6 @@
                   <option value="harga-rendah">Harga Terendah</option>
                   <option value="harga-tinggi">Harga Tertinggi</option>
                 </select>
-              </div>
-              <div class="catalog-view-toggle">
-                <button type="button" class="catalog-view-btn active" title="Tampilan Grid" aria-label="Tampilan Grid">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
-                    <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
-                    <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
-                    <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
-                  </svg>
-                </button>
-                <button type="button" class="catalog-view-btn" title="Tampilan List" aria-label="Tampilan List">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                    <line x1="8" y1="6" x2="21" y2="6"></line>
-                    <line x1="8" y1="12" x2="21" y2="12"></line>
-                    <line x1="8" y1="18" x2="21" y2="18"></line>
-                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                  </svg>
-                </button>
               </div>
             </div>
           </div>
